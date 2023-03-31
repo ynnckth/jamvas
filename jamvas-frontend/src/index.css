@@ -12,6 +12,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* Darcula color palette */
+  --background-color: #282a36;
+  --background-secondary-color: #44475a;
+  --foreground-color: #f8f8f2;
+  --purple: #bd93f9;
+  --orange: #ffb86c;
+  --yellow: #f1fa8c;
+  --pink: #ff79c6;
+  --cyan: #8be9fd;
+  --gray: #999;
 }
 
 a {
@@ -29,6 +40,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
 }
 
 h1 {
