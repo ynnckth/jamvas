@@ -1,12 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { drumSequencer } from "./instruments/drums/drumSequencer";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { drumSequencerState } from "./instruments/drums/drumSequencerState";
 import { SequencerInstrument } from "./types/sequencerInstrument";
 import { setBpm, startSequencer, stopSequencer } from "./sequencerThunks";
 
 interface SequencerSliceState {
   bpm: number;
   currentlyActiveStep: number;
-  totalNoOfSteps: number;
   isSequencerStopped: boolean;
   sequencerInstruments: SequencerInstrument[];
 }
@@ -14,15 +13,19 @@ interface SequencerSliceState {
 const initialState: SequencerSliceState = {
   bpm: 120,
   currentlyActiveStep: 0,
-  totalNoOfSteps: 8,
   isSequencerStopped: true,
-  sequencerInstruments: [drumSequencer],
+  sequencerInstruments: [drumSequencerState],
 };
 
 export const sequencerSlice = createSlice({
   name: "sequencerSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentlyActiveStep: (state, action: PayloadAction<number>) => {
+      console.log("Currently active step: ", action.payload);
+      state.currentlyActiveStep = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(setBpm.fulfilled, (state, action) => {
@@ -37,4 +40,5 @@ export const sequencerSlice = createSlice({
   },
 });
 
+export const { setCurrentlyActiveStep } = sequencerSlice.actions;
 export default sequencerSlice.reducer;

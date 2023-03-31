@@ -1,29 +1,32 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleThunk } from "../../app/handleThunk";
+import Sequencer from "./sequencer";
 
-export const setBpm = createAsyncThunk<number, number, { rejectValue: string }>(
+// TODO: do we really need to store any state in redux or is it sufficient to store everything in the sequencer itself?
+
+export const setBpm = createAsyncThunk<number, { newBpm: number; sequencer: Sequencer }, { rejectValue: string }>(
   "sequencerSlice/setBpm",
-  async (newBpm: number, { rejectWithValue }) =>
+  async ({ newBpm, sequencer }, { rejectWithValue }) =>
     handleThunk(async () => {
-      // TODO: update bpm of sequencer
+      sequencer.setBpm(newBpm);
       return newBpm;
     }, rejectWithValue)
 );
 
-export const startSequencer = createAsyncThunk<boolean, void, { rejectValue: string }>(
+export const startSequencer = createAsyncThunk<boolean, { sequencer: Sequencer }, { rejectValue: string }>(
   "sequencerSlice/startSequencer",
-  async (_, { rejectWithValue }) =>
+  async ({ sequencer }, { rejectWithValue }) =>
     handleThunk(async () => {
-      // TODO: start sequencer
+      sequencer.start();
       return true;
     }, rejectWithValue)
 );
 
-export const stopSequencer = createAsyncThunk<boolean, void, { rejectValue: string }>(
+export const stopSequencer = createAsyncThunk<boolean, { sequencer: Sequencer }, { rejectValue: string }>(
   "sequencerSlice/stopSequencer",
-  async (_, { rejectWithValue }) =>
+  async ({ sequencer }, { rejectWithValue }) =>
     handleThunk(async () => {
-      // TODO: stop sequencer
+      sequencer.stop();
       return false;
     }, rejectWithValue)
 );

@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./GlobalSequencer.css";
 import { GridCell } from "../GridCell/GridCell";
-import { useAppSelector } from "../../../../app/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
 import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSelectors";
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
 import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
-
-interface Props {}
+import SequencerContext from "../../sequencerContext";
+import { setCurrentlyActiveStep } from "../../sequencerSlice";
 
 /**
  * Global sequencer containing several sub sequencer instruments
  */
-export const GlobalSequencer: React.FC<Props> = () => {
+export const GlobalSequencer: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { sequencer } = useContext(SequencerContext);
   const instruments: SequencerInstrument[] = useAppSelector(selectSequencerInstruments);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
+
+  // Synchronizes the currently active step from the sequencer with the redux state
+  useEffect(() => {
+    sequencer.onStepChanged().subscribe((currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
+  }, [sequencer]);
 
   return (
     <div className="step-sequencer">
