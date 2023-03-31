@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { drumSequencerState } from "./instruments/drums/drumSequencerState";
 import { SequencerInstrument } from "./types/sequencerInstrument";
-import { setBpm, startSequencer, stopSequencer } from "./sequencerThunks";
+import { setBpm, setInstrumentGridValue, startSequencer, stopSequencer } from "./sequencerThunks";
 
 interface SequencerSliceState {
   bpm: number;
@@ -36,6 +36,11 @@ export const sequencerSlice = createSlice({
       })
       .addCase(stopSequencer.fulfilled, (state) => {
         state.isSequencerStopped = true;
+      })
+      .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
+        const { instrument, trackIndex, stepIndex, newValue } = action.payload;
+        const instrumentToUpdate = state.sequencerInstruments.find((i) => i.id === instrument)!;
+        instrumentToUpdate.grid[trackIndex].steps[stepIndex].isOn = newValue;
       });
   },
 });

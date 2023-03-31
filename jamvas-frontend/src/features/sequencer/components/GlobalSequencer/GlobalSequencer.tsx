@@ -8,6 +8,8 @@ import { SequencerInstrument } from "../../types/sequencerInstrument";
 import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
 import SequencerContext from "../../sequencerContext";
 import { setCurrentlyActiveStep } from "../../sequencerSlice";
+import { Instrument } from "../../instruments/Instrument";
+import { setInstrumentGridValue } from "../../sequencerThunks";
 
 /**
  * Global sequencer containing several sub sequencer instruments
@@ -23,6 +25,10 @@ export const GlobalSequencer: React.FC = () => {
     sequencer.onStepChanged().subscribe((currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
   }, [sequencer]);
 
+  const onCellClicked = (instrument: Instrument, trackIndex: number, stepIndex: number, newValue: boolean) => {
+    dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }));
+  };
+
   return (
     <div className="step-sequencer">
       <GlobalSequencerControls />
@@ -37,7 +43,7 @@ export const GlobalSequencer: React.FC = () => {
                     key={`step-${stepIndex}`}
                     isCurrentlyActiveStep={stepIndex === currentlyActiveStep}
                     isOn={step.isOn}
-                    onClick={() => {}}
+                    onClick={() => onCellClicked(instrument.id, trackIndex, stepIndex, !step.isOn)}
                     fillColor={getInstrumentColor(instrument.id)}
                   />
                 ))}

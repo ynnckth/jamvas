@@ -25,8 +25,6 @@ class Sequencer {
       Array.from(Array(TOTAL_NO_STEPS).keys()),
       "16n"
     );
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
   }
 
   start() {
