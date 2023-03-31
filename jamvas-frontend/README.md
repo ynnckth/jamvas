@@ -12,3 +12,6 @@ Build the project with:
 npm run build
 ```
 
+### Icons
+This project uses `react-icons`. Find icons here:
+> https://react-icons.github.io/react-icons

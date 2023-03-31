@@ -5,6 +5,7 @@ import { useAppSelector } from "../../../../app/reduxHooks";
 import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSelectors";
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
+import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
 
 interface Props {}
 
@@ -17,6 +18,8 @@ export const GlobalSequencer: React.FC<Props> = () => {
 
   return (
     <div className="step-sequencer">
+      <GlobalSequencerControls />
+
       {instruments.map((instrument) => (
         <div className="sequencer-instrument" key={`instrument-${instrument}`}>
           <div className="grid">
