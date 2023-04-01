@@ -3,6 +3,7 @@ import SequencerInstrument from "../sequencerInstrument";
 import { Instrument } from "../Instrument";
 import { samples } from "./samples";
 import { Track } from "../../types/track";
+import { Seconds } from "tone/build/esm/core/type/Units";
 
 class DrumSequencer extends SequencerInstrument {
   private sampler: Sampler;
@@ -17,9 +18,9 @@ class DrumSequencer extends SequencerInstrument {
     }).toDestination();
   }
 
-  // TODO: play actual sample at track index
-  play(): void {
-    console.log("Requested to play drum sequencer");
+  play(trackName: string, scheduledTime: Seconds): void {
+    const sampleToPlay = samples.find((sample) => sample.name === trackName)!;
+    this.sampler.triggerAttack(sampleToPlay.key, scheduledTime, 0.4);
   }
 
   getNoOfSupportedTracks(): number {

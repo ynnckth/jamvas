@@ -2,6 +2,7 @@ import { Sequence, Transport } from "tone";
 import { Observable, Subject } from "rxjs";
 import { MAX_BPM, MIN_BPM, TOTAL_NO_STEPS } from "./constants";
 import SequencerInstrument from "./instruments/sequencerInstrument";
+import { Seconds } from "tone/build/esm/core/type/Units";
 
 class Sequencer {
   private $currentStep: Subject<number> = new Subject();
@@ -9,20 +10,23 @@ class Sequencer {
 
   constructor(private _instruments: SequencerInstrument[]) {
     this.sequence = new Sequence(
-      (time, step) => {
-        this.$currentStep.next(step);
-
-        this._instruments.forEach((instrument) => {
-          instrument.getTracks().forEach((track, trackIndex) => {
-            if (instrument.getTracks()[trackIndex].steps[step].isOn) {
-              instrument.play();
-            }
-          });
-        });
+      (time, currentStep) => {
+        this.$currentStep.next(currentStep);
+        this.playAllTracksAtCurrentStep(currentStep, time);
       },
       Array.from(Array(TOTAL_NO_STEPS).keys()),
       "16n"
     );
+  }
+
+  playAllTracksAtCurrentStep(currentStep: number, time: Seconds) {
+    this._instruments.forEach((instrument) => {
+      instrument.getTracks().forEach((track) => {
+        if (track.steps[currentStep].isOn) {
+          instrument.play(track.name, time);
+        }
+      });
+    });
   }
 
   start() {

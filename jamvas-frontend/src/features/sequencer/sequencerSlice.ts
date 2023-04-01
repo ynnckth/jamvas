@@ -15,7 +15,6 @@ export const sequencerSlice = createSlice({
   initialState,
   reducers: {
     setCurrentlyActiveStep: (state, action: PayloadAction<number>) => {
-      console.log("Currently active step: ", action.payload);
       state.currentlyActiveStep = action.payload;
     },
   },
@@ -31,9 +30,9 @@ export const sequencerSlice = createSlice({
         state.isSequencerStopped = true;
       })
       .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
-        const { instrument, trackIndex, stepIndex, newValue } = action.payload;
-        const instrumentToUpdate = state.sequencerInstruments.find((i) => i.id === instrument)!;
-        instrumentToUpdate.grid[trackIndex].steps[stepIndex].isOn = newValue;
+        const { instrument, updatedTracks } = action.payload;
+        const updatedInstrument = state.sequencerInstruments.find((i) => i.id === instrument)!;
+        updatedInstrument.grid = updatedTracks;
       });
   },
 });

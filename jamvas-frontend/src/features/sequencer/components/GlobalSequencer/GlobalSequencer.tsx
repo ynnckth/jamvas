@@ -25,14 +25,6 @@ export const GlobalSequencer: React.FC = () => {
     sequencer.onStepChanged().subscribe((currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
   }, [sequencer]);
 
-  /**
-   * Synchronizes the updated instrument tracks from the redux store with the sequencer
-   */
-  const synchronizeInstrumentTracks = (instrument: Instrument) => {
-    const updatedInstrument = instruments.find((i) => i.id === instrument)!;
-    sequencer.instruments.find((i) => i.instrument === instrument)!.setTracks(updatedInstrument.grid);
-  };
-
   const onGridCellClicked = async (
     instrument: Instrument,
     trackIndex: number,
@@ -41,7 +33,12 @@ export const GlobalSequencer: React.FC = () => {
   ) => {
     dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }))
       .unwrap()
-      .then(() => synchronizeInstrumentTracks(instrument));
+      .then((updatedInstrumentTrack) => {
+        // Synchronize redux state with sequencer state
+        updatedInstrumentTrack.updatedTracks;
+        const instrumentToUpdate = sequencer.instruments.find((i) => i.instrument === instrument)!;
+        instrumentToUpdate.setTracks(updatedInstrumentTrack.updatedTracks);
+      });
   };
 
   return (
@@ -53,6 +50,7 @@ export const GlobalSequencer: React.FC = () => {
           <div className="grid">
             {instrument.grid.map((track, trackIndex) => (
               <div className="track" key={`track-${trackIndex}`}>
+                <div>{track.name.at(0)}</div>
                 {track.steps.map((step, stepIndex) => (
                   <GridCell
                     key={`step-${stepIndex}`}
