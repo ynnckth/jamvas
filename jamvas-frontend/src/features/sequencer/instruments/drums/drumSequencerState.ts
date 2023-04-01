@@ -4,10 +4,18 @@ import { SequencerInstrument } from "../../types/sequencerInstrument";
 export const drumSequencerState: SequencerInstrument = {
   id: Instrument.DRUMS,
   name: "Drums",
-  grid: [
+  tracks: [
     {
       name: "kick",
       steps: [
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
         { isOn: false },
         { isOn: false },
         { isOn: false },
@@ -29,11 +37,27 @@ export const drumSequencerState: SequencerInstrument = {
         { isOn: false },
         { isOn: false },
         { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
       ],
     },
     {
       name: "hihat_closed",
       steps: [
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
+        { isOn: false },
         { isOn: false },
         { isOn: false },
         { isOn: false },

@@ -43,15 +43,15 @@ export const setInstrumentGridValue = createAsyncThunk<
       const sequencerState = (getState() as RootState).sequencerSlice;
       const instrumentToUpdate = sequencerState.sequencerInstruments.find((i) => i.id === instrument)!;
       const updatedTrack: Track = {
-        ...instrumentToUpdate.grid[trackIndex],
-        steps: instrumentToUpdate.grid[trackIndex].steps.map((step, i) => {
+        ...instrumentToUpdate.tracks[trackIndex],
+        steps: instrumentToUpdate.tracks[trackIndex].steps.map((step, i) => {
           if (i !== stepIndex) {
             return step;
           }
           return { isOn: newValue };
         }),
       };
-      const updatedTracks: Track[] = instrumentToUpdate.grid.map((track) => {
+      const updatedTracks: Track[] = instrumentToUpdate.tracks.map((track) => {
         if (track.name !== updatedTrack.name) {
           return track;
         }

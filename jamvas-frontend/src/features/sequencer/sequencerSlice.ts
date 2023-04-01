@@ -32,7 +32,7 @@ export const sequencerSlice = createSlice({
       .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
         const { instrument, updatedTracks } = action.payload;
         const updatedInstrument = state.sequencerInstruments.find((i) => i.id === instrument)!;
-        updatedInstrument.grid = updatedTracks;
+        updatedInstrument.tracks = updatedTracks;
       });
   },
 });

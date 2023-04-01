@@ -48,8 +48,9 @@ export const GlobalSequencer: React.FC = () => {
       {instruments.map((instrument) => (
         <div className="sequencer-instrument" key={`instrument-${instrument}`}>
           <div className="grid">
-            {instrument.grid.map((track, trackIndex) => (
+            {instrument.tracks.map((track, trackIndex) => (
               <div className="track" key={`track-${trackIndex}`}>
+                {/* TODO: add track icon logo */}
                 <div>{track.name.at(0)}</div>
                 {track.steps.map((step, stepIndex) => (
                   <GridCell
