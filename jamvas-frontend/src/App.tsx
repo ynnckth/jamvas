@@ -15,9 +15,6 @@ const App: React.FC = () => {
       >
         Jamvas
       </h1>
-      <div className="card">
-        <p>Join the jam session!</p>
-      </div>
       <GlobalSequencer />
     </div>
   );

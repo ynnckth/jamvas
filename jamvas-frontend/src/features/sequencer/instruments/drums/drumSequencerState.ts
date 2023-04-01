@@ -1,72 +1,13 @@
 import { Instrument } from "../Instrument";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
+import { createEmptySteps } from "../../createEmptySteps";
+import { samples } from "./samples";
 
 export const drumSequencerState: SequencerInstrument = {
   id: Instrument.DRUMS,
-  name: "Drums",
-  tracks: [
-    {
-      name: "kick",
-      steps: [
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-      ],
-    },
-    {
-      name: "snare",
-      steps: [
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-      ],
-    },
-    {
-      name: "hihat_closed",
-      steps: [
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-        { isOn: false },
-      ],
-    },
-  ],
+  name: "Rhythm",
+  tracks: samples.map((sample) => ({
+    name: sample.name,
+    steps: createEmptySteps(),
+  })),
 };

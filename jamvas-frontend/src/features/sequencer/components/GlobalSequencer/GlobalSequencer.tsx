@@ -47,6 +47,7 @@ export const GlobalSequencer: React.FC = () => {
 
       {instruments.map((instrument) => (
         <div className="sequencer-instrument" key={`instrument-${instrument}`}>
+          <div style={{ color: "var(--orange)" }}>{instrument.name}</div>
           <div className="grid">
             {instrument.tracks.map((track, trackIndex) => (
               <div className="track" key={`track-${trackIndex}`}>

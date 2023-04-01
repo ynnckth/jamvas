@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: TR-909, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -66,6 +66,11 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@font-face {
+  font-family: 'TR-909';
+  src: local('TR-909'), url(./assets/fonts/TR-909.ttf) format('truetype');
 }
 
 @media (prefers-color-scheme: light) {
