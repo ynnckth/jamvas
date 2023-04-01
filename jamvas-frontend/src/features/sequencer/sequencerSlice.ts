@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { drumSequencerState } from "./instruments/drums/drumSequencerState";
-import { SequencerInstrument } from "./types/sequencerInstrument";
 import { setBpm, setInstrumentGridValue, startSequencer, stopSequencer } from "./sequencerThunks";
-
-interface SequencerSliceState {
-  bpm: number;
-  currentlyActiveStep: number;
-  isSequencerStopped: boolean;
-  sequencerInstruments: SequencerInstrument[];
-}
+import { SequencerSliceState } from "./types/sequencerSliceState";
 
 const initialState: SequencerSliceState = {
   bpm: 120,

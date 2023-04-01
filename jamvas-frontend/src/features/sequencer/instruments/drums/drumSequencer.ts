@@ -2,9 +2,11 @@ import { Sampler } from "tone";
 import SequencerInstrument from "../sequencerInstrument";
 import { Instrument } from "../Instrument";
 import { samples } from "./samples";
+import { Track } from "../../types/track";
 
 class DrumSequencer extends SequencerInstrument {
   private sampler: Sampler;
+  private tracks: Track[] = [];
 
   constructor(instrument: Instrument) {
     super(instrument);
@@ -15,8 +17,21 @@ class DrumSequencer extends SequencerInstrument {
     }).toDestination();
   }
 
-  play(track: string, scheduledTime: number): void {
-    this.sampler.triggerAttack(samples.find((sample) => sample.id === track)!.key, scheduledTime, 0.4);
+  // TODO: play actual sample at track index
+  play(): void {
+    console.log("Requested to play drum sequencer");
+  }
+
+  getNoOfSupportedTracks(): number {
+    return samples.length;
+  }
+
+  getTracks(): Track[] {
+    return this.tracks;
+  }
+
+  setTracks(tracks: Track[]): void {
+    this.tracks = tracks;
   }
 }
 export default DrumSequencer;

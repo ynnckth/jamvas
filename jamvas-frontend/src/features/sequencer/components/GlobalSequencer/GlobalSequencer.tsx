@@ -6,7 +6,7 @@ import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSe
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
 import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
-import SequencerContext from "../../sequencerContext";
+import SequencerContext from "../../context/sequencerContext";
 import { setCurrentlyActiveStep } from "../../sequencerSlice";
 import { Instrument } from "../../instruments/Instrument";
 import { setInstrumentGridValue } from "../../sequencerThunks";
@@ -25,8 +25,23 @@ export const GlobalSequencer: React.FC = () => {
     sequencer.onStepChanged().subscribe((currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
   }, [sequencer]);
 
-  const onCellClicked = (instrument: Instrument, trackIndex: number, stepIndex: number, newValue: boolean) => {
-    dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }));
+  /**
+   * Synchronizes the updated instrument tracks from the redux store with the sequencer
+   */
+  const synchronizeInstrumentTracks = (instrument: Instrument) => {
+    const updatedInstrument = instruments.find((i) => i.id === instrument)!;
+    sequencer.instruments.find((i) => i.instrument === instrument)!.setTracks(updatedInstrument.grid);
+  };
+
+  const onGridCellClicked = async (
+    instrument: Instrument,
+    trackIndex: number,
+    stepIndex: number,
+    newValue: boolean
+  ) => {
+    dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }))
+      .unwrap()
+      .then(() => synchronizeInstrumentTracks(instrument));
   };
 
   return (
@@ -43,7 +58,7 @@ export const GlobalSequencer: React.FC = () => {
                     key={`step-${stepIndex}`}
                     isCurrentlyActiveStep={stepIndex === currentlyActiveStep}
                     isOn={step.isOn}
-                    onClick={() => onCellClicked(instrument.id, trackIndex, stepIndex, !step.isOn)}
+                    onClick={() => onGridCellClicked(instrument.id, trackIndex, stepIndex, !step.isOn)}
                     fillColor={getInstrumentColor(instrument.id)}
                   />
                 ))}

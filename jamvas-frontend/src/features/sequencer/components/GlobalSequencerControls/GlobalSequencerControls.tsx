@@ -6,7 +6,7 @@ import { setBpm, startSequencer, stopSequencer } from "../../sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { MAX_BPM, MIN_BPM } from "../../constants";
 import { debounce } from "lodash";
-import SequencerContext from "../../sequencerContext";
+import SequencerContext from "../../context/sequencerContext";
 
 export const GlobalSequencerControls: React.FC = () => {
   const dispatch = useAppDispatch();

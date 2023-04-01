@@ -11,16 +11,14 @@ class Sequencer {
     this.sequence = new Sequence(
       (time, step) => {
         this.$currentStep.next(step);
-        // TODO: play instruments
-        /*
+
         this._instruments.forEach((instrument) => {
-          instrument.grid.forEach((track, trackIndex) => {
-            if (instrument.grid[trackIndex][step] === 1) {
-              instrument.play(instrument.tracks[trackIndex], time);
+          instrument.getTracks().forEach((track, trackIndex) => {
+            if (instrument.getTracks()[trackIndex].steps[step].isOn) {
+              instrument.play();
             }
           });
         });
-         */
       },
       Array.from(Array(TOTAL_NO_STEPS).keys()),
       "16n"
@@ -47,6 +45,10 @@ class Sequencer {
 
   onStepChanged(): Observable<number> {
     return this.$currentStep.asObservable();
+  }
+
+  get instruments(): SequencerInstrument[] {
+    return this._instruments;
   }
 }
 
