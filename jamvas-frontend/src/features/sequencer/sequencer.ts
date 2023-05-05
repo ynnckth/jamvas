@@ -1,9 +1,10 @@
 import { Sequence, Transport } from "tone";
 import { Observable, Subject } from "rxjs";
-import { MAX_BPM, MIN_BPM, TOTAL_NO_STEPS } from "./constants";
+import { TOTAL_NO_STEPS } from "./constants";
 import SequencerInstrument from "./instruments/sequencerInstrument";
 import { Seconds } from "tone/build/esm/core/type/Units";
 
+// TODO: replace with hook that can access redux store!
 class Sequencer {
   private $currentStep: Subject<number> = new Subject();
   private sequence: Sequence;
@@ -37,14 +38,6 @@ class Sequencer {
   stop() {
     Transport.stop();
     this.sequence.stop();
-  }
-
-  setBpm(bpm: number) {
-    if (bpm < MIN_BPM || bpm > MAX_BPM) {
-      console.error(`${bpm} BPM is not within allowed boundaries`);
-      return;
-    }
-    Transport.bpm.rampTo(bpm, 1);
   }
 
   onStepChanged(): Observable<number> {
