@@ -1,4 +1,4 @@
-export enum Instrument {
+export enum InstrumentId {
   DRUMS = "DRUMS",
   LEAD = "LEAD",
 }

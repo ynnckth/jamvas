@@ -6,7 +6,7 @@ import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSe
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
 import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
-import { Instrument } from "../../instruments/Instrument";
+import { InstrumentId } from "../../instruments/InstrumentId";
 import { setInstrumentGridValue } from "../../sequencerThunks";
 import useSequence from "../../useSequence";
 
@@ -20,7 +20,7 @@ export const GlobalSequencer: React.FC = () => {
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
 
   const onGridCellClicked = async (
-    instrument: Instrument,
+    instrument: InstrumentId,
     trackIndex: number,
     stepIndex: number,
     newValue: boolean

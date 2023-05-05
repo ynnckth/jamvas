@@ -7,11 +7,11 @@ import { Seconds } from "tone/build/esm/core/type/Units";
 import { startSequencer, stopSequencer } from "./sequencerThunks";
 import { selectSequencerInstruments } from "./sequencerSelectors";
 import DrumSequencer from "./instruments/drums/drumSequencer";
-import { Instrument } from "./instruments/Instrument";
+import { InstrumentId } from "./instruments/InstrumentId";
 import LeadSynthSequencer from "./instruments/lead/leadSynthSequencer";
 
-const drumSequencer = new DrumSequencer(Instrument.DRUMS);
-const leadSynthSequencer = new LeadSynthSequencer(Instrument.LEAD);
+const drumSequencer = new DrumSequencer(InstrumentId.DRUMS);
+const leadSynthSequencer = new LeadSynthSequencer(InstrumentId.LEAD);
 
 const useSequence = () => {
   const dispatch = useAppDispatch();
@@ -40,9 +40,7 @@ const useSequence = () => {
 
   const playAllTracksAtCurrentStep = (currentStep: number, time: Seconds) => {
     [drumSequencer, leadSynthSequencer].forEach((instrument) => {
-      const currentInstrumentState = instrumentStates.find(
-        (instrumentState) => instrumentState.id === instrument.instrument
-      )!;
+      const currentInstrumentState = instrumentStates.find((instrumentState) => instrumentState.id === instrument.id)!;
       currentInstrumentState.tracks.forEach((track) => {
         if (track.steps[currentStep].isOn) {
           instrument.play(track.name, time);

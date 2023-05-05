@@ -1,8 +1,8 @@
-import { Instrument } from "./Instrument";
+import { InstrumentId } from "./InstrumentId";
 
-export const getInstrumentColor = (instrument: Instrument) => {
-  switch (instrument) {
-    case Instrument.DRUMS:
+export const getInstrumentColor = (instrumentId: InstrumentId) => {
+  switch (instrumentId) {
+    case InstrumentId.DRUMS:
       return "var(--orange)";
     default:
       return "var(--gray)";

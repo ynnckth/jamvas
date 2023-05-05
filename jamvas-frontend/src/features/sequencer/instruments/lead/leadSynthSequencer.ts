@@ -1,14 +1,13 @@
 import { Filter, PolySynth, Reverb, Synth } from "tone";
 import SequencerInstrument from "../sequencerInstrument";
-import { Instrument } from "../Instrument";
+import { InstrumentId } from "../InstrumentId";
 
 class LeadSynthSequencer extends SequencerInstrument {
   private readonly synthesizer: PolySynth;
   private readonly lowPassFilter: Filter;
 
-  constructor(instrument: Instrument) {
-    super(instrument);
-
+  constructor(id: InstrumentId) {
+    super(id);
     this.lowPassFilter = new Filter(800, "lowpass", -96).toDestination();
     const reverb = new Reverb(3).toDestination();
 

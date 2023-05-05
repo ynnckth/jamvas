@@ -1,11 +1,11 @@
-import { Instrument } from "./Instrument";
+import { InstrumentId } from "./InstrumentId";
 import { SequencerInstrument } from "../types/sequencerInstrument";
 import { createEmptySteps } from "../createEmptySteps";
 import { samples } from "./drums/samples";
 import { dorianScale, getScaleForOctave } from "../melody/getScale";
 
 export const drumSequencerState: SequencerInstrument = {
-  id: Instrument.DRUMS,
+  id: InstrumentId.DRUMS,
   name: "Rhythm",
   tracks: samples.map((sample) => ({
     name: sample.name,
@@ -14,7 +14,7 @@ export const drumSequencerState: SequencerInstrument = {
 };
 
 export const leadSynthSequencerState: SequencerInstrument = {
-  id: Instrument.LEAD,
+  id: InstrumentId.LEAD,
   name: "Lead",
   tracks: [...getScaleForOctave(dorianScale, 4), ...getScaleForOctave(dorianScale, 5)].map((note) => ({
     name: note,

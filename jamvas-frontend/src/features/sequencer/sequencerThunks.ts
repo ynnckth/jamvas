@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleThunk } from "../../app/handleThunk";
-import { Instrument } from "./instruments/Instrument";
+import { InstrumentId } from "./instruments/InstrumentId";
 import { start, Transport } from "tone";
 import { MAX_BPM, MIN_BPM } from "./constants";
 
@@ -36,8 +36,8 @@ export const stopSequencer = createAsyncThunk<boolean, void, { rejectValue: stri
 );
 
 export const setInstrumentGridValue = createAsyncThunk<
-  { instrument: Instrument; trackIndex: number; stepIndex: number; newValue: boolean },
-  { instrument: Instrument; trackIndex: number; stepIndex: number; newValue: boolean },
+  { instrument: InstrumentId; trackIndex: number; stepIndex: number; newValue: boolean },
+  { instrument: InstrumentId; trackIndex: number; stepIndex: number; newValue: boolean },
   { rejectValue: string }
 >(
   "sequencerSlice/setInstrumentGridValue",

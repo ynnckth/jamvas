@@ -1,8 +1,8 @@
-import { Instrument } from "../instruments/Instrument";
+import { InstrumentId } from "../instruments/InstrumentId";
 import { Track } from "./track";
 
 export interface SequencerInstrument {
-  id: Instrument;
+  id: InstrumentId;
   name: string;
   tracks: Track[];
 }
