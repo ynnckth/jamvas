@@ -1,12 +1,10 @@
 import { Filter, PolySynth, Reverb, Synth } from "tone";
 import SequencerInstrument from "../sequencerInstrument";
 import { Instrument } from "../Instrument";
-import { Track } from "../../types/track";
 
 class LeadSynthSequencer extends SequencerInstrument {
   private readonly synthesizer: PolySynth;
   private readonly lowPassFilter: Filter;
-  private tracks: Track[] = [];
 
   constructor(instrument: Instrument) {
     super(instrument);
@@ -32,18 +30,6 @@ class LeadSynthSequencer extends SequencerInstrument {
 
   play(note: string, scheduledTime: number): void {
     this.synthesizer.triggerAttackRelease(note, "16n", scheduledTime);
-  }
-
-  getNoOfSupportedTracks(): number {
-    return this.tracks.length;
-  }
-
-  getTracks(): Track[] {
-    return this.tracks;
-  }
-
-  setTracks(tracks: Track[]): void {
-    this.tracks = tracks;
   }
 }
 export default LeadSynthSequencer;

@@ -1,18 +1,21 @@
-import React, { useContext, useEffect } from "react";
 import "./GlobalSequencerControls.css";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
 import { selectCurrentBpm, selectIsSequencerStopped } from "../../sequencerSelectors";
-import { setBpm, startSequencer, stopSequencer } from "../../sequencerThunks";
+import { setBpm } from "../../sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { MAX_BPM, MIN_BPM } from "../../constants";
 import { debounce } from "lodash";
-import SequencerContext from "../../context/sequencerContext";
 
-export const GlobalSequencerControls: React.FC = () => {
+interface Props {
+  onStartSequence: () => void;
+  onStopSequence: () => void;
+}
+
+export const GlobalSequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequence }) => {
   const dispatch = useAppDispatch();
   const isSequencerStopped = useAppSelector(selectIsSequencerStopped);
   const currentBpm = useAppSelector(selectCurrentBpm);
-  const { sequencer } = useContext(SequencerContext);
 
   const onKeyPressed = (event: KeyboardEvent) => {
     if (event.code === "Space") {
@@ -20,10 +23,9 @@ export const GlobalSequencerControls: React.FC = () => {
     }
   };
 
-  const onUpdateBpm = (event: any) => dispatch(setBpm({ newBpm: Number(event.target.value), sequencer }));
+  const onUpdateBpm = (event: any) => dispatch(setBpm({ newBpm: Number(event.target.value) }));
 
-  const toggleStopped = () =>
-    isSequencerStopped ? dispatch(startSequencer({ sequencer })) : dispatch(stopSequencer({ sequencer }));
+  const toggleStopped = () => (isSequencerStopped ? onStartSequence() : onStopSequence());
 
   useEffect(() => {
     document.addEventListener("keypress", onKeyPressed);

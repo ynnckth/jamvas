@@ -34,9 +34,9 @@ export const sequencerSlice = createSlice({
         state.isSequencerStopped = true;
       })
       .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
-        const { instrument, updatedTracks } = action.payload;
+        const { instrument, trackIndex, stepIndex, newValue } = action.payload;
         const updatedInstrument = state.sequencerInstruments.find((i) => i.id === instrument)!;
-        updatedInstrument.tracks = updatedTracks;
+        updatedInstrument.tracks[trackIndex].steps[stepIndex].isOn = newValue;
       });
   },
 });
