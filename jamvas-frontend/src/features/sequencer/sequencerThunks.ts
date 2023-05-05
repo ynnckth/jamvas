@@ -4,6 +4,16 @@ import Sequencer from "./sequencer";
 import { Instrument } from "./instruments/Instrument";
 import { RootState } from "../../app/store";
 import { Track } from "./types/track";
+import { start } from "tone";
+
+export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
+  "sequencerSlice/initializeTone",
+  async (_, { rejectWithValue }) =>
+    handleThunk(async () => {
+      await start();
+      console.log("Tone.js initialized");
+    }, rejectWithValue)
+);
 
 export const setBpm = createAsyncThunk<number, { newBpm: number; sequencer: Sequencer }, { rejectValue: string }>(
   "sequencerSlice/setBpm",

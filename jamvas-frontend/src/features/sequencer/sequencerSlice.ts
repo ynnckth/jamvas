@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { drumSequencerState, leadSynthSequencerState } from "./instruments/instrumentsState";
-import { setBpm, setInstrumentGridValue, startSequencer, stopSequencer } from "./sequencerThunks";
+import { initializeTone, setBpm, setInstrumentGridValue, startSequencer, stopSequencer } from "./sequencerThunks";
 import { SequencerSliceState } from "./types/sequencerSliceState";
 
 const initialState: SequencerSliceState = {
+  isToneInitialized: false,
   bpm: 120,
   currentlyActiveStep: 0,
   isSequencerStopped: true,
@@ -20,6 +21,9 @@ export const sequencerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(initializeTone.fulfilled, (state) => {
+        state.isToneInitialized = true;
+      })
       .addCase(setBpm.fulfilled, (state, action) => {
         state.bpm = action.payload;
       })

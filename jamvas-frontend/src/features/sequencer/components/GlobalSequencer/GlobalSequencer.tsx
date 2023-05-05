@@ -22,7 +22,7 @@ export const GlobalSequencer: React.FC = () => {
 
   // Synchronizes the currently active step from the sequencer with the redux state
   useEffect(() => {
-    sequencer.onStepChanged().subscribe((currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
+    sequencer.onStepChanged().subscribe( (currentStep) => dispatch(setCurrentlyActiveStep(currentStep)));
   }, [sequencer]);
 
   const onGridCellClicked = async (

@@ -4,3 +4,4 @@ export const selectSequencerInstruments = (state: RootState) => state.sequencerS
 export const selectCurrentStep = (state: RootState) => state.sequencerSlice.currentlyActiveStep;
 export const selectIsSequencerStopped = (state: RootState) => state.sequencerSlice.isSequencerStopped;
 export const selectCurrentBpm = (state: RootState) => state.sequencerSlice.bpm;
+export const selectIsToneInitialized = (state: RootState) => state.sequencerSlice.isToneInitialized;
