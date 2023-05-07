@@ -14,20 +14,15 @@ export class SequencerRepository {
       {
         instrumentId: InstrumentId.DRUMS,
         instrumentDisplayName: 'Rhythm',
-        tracks: ['kick', 'snare', 'clap', 'hihat_closed', 'hihat_open'].map(
-          (sample) => ({
-            name: sample,
-            steps: this.createEmptySteps(),
-          }),
-        ),
+        tracks: ['kick', 'snare', 'clap', 'hihat_closed', 'hihat_open'].map((sample) => ({
+          name: sample,
+          steps: this.createEmptySteps(),
+        })),
       },
       {
         instrumentId: InstrumentId.LEAD,
         instrumentDisplayName: 'Lead',
-        tracks: [
-          ...getScaleForOctave(dorianScale, 4),
-          ...getScaleForOctave(dorianScale, 5),
-        ].map((note) => ({
+        tracks: [...getScaleForOctave(dorianScale, 4), ...getScaleForOctave(dorianScale, 5)].map((note) => ({
           name: note,
           steps: this.createEmptySteps(),
         })),
@@ -36,6 +31,11 @@ export class SequencerRepository {
   };
 
   async getConfiguration(): Promise<SequencerConfiguration> {
+    return this.sequencerConfiguration;
+  }
+
+  async saveConfiguration(sequencerConfiguration: SequencerConfiguration): Promise<SequencerConfiguration> {
+    this.sequencerConfiguration = sequencerConfiguration;
     return this.sequencerConfiguration;
   }
 

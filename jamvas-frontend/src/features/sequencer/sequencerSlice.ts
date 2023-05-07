@@ -48,13 +48,8 @@ export const sequencerSlice = createSlice({
       .addCase(stopSequencer.fulfilled, (state) => {
         state.isSequencerStopped = true;
       })
-      // TODO: move this logic to the backend and handle websocket config state update instead
       .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
-        const { instrument, trackIndex, stepIndex, newValue } = action.payload;
-        const updatedInstrument = state.sequencerConfiguration?.sequencerInstrumentStates.find(
-          (i) => i.instrumentId === instrument
-        )!;
-        updatedInstrument.tracks[trackIndex].steps[stepIndex].isOn = newValue;
+        state.sequencerConfiguration = action.payload;
       });
   },
 });

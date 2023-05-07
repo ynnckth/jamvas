@@ -3,7 +3,7 @@ import { handleThunk } from "../../app/handleThunk";
 import { InstrumentId } from "./instruments/InstrumentId";
 import { start, Transport } from "tone";
 import { MAX_BPM, MIN_BPM } from "./constants";
-import { fetchSequencerConfiguration } from "../../api/sequencerApi";
+import { fetchSequencerConfiguration, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
 
 export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
@@ -46,18 +46,13 @@ export const stopSequencer = createAsyncThunk<boolean, void, { rejectValue: stri
 );
 
 export const setInstrumentGridValue = createAsyncThunk<
-  { instrument: InstrumentId; trackIndex: number; stepIndex: number; newValue: boolean },
+  SequencerConfiguration,
   { instrument: InstrumentId; trackIndex: number; stepIndex: number; newValue: boolean },
   { rejectValue: string }
 >(
   "sequencerSlice/setInstrumentGridValue",
   async ({ instrument, trackIndex, stepIndex, newValue }, { rejectWithValue }) =>
     handleThunk(async () => {
-      return {
-        instrument,
-        trackIndex,
-        stepIndex,
-        newValue,
-      };
+      return await updateSequencerInstrumentGrid(instrument, trackIndex, stepIndex, newValue);
     }, rejectWithValue)
 );
