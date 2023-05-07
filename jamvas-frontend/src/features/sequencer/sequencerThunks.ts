@@ -3,6 +3,8 @@ import { handleThunk } from "../../app/handleThunk";
 import { InstrumentId } from "./instruments/InstrumentId";
 import { start, Transport } from "tone";
 import { MAX_BPM, MIN_BPM } from "./constants";
+import { fetchSequencerConfiguration } from "../../api/sequencerApi";
+import { SequencerConfiguration } from "./types/SequencerConfiguration";
 
 export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
   "sequencerSlice/initializeTone",
@@ -10,6 +12,14 @@ export const initializeTone = createAsyncThunk<void, void, { rejectValue: string
     handleThunk(async () => {
       await start();
       console.log("Tone.js initialized");
+    }, rejectWithValue)
+);
+
+export const getSequencerConfiguration = createAsyncThunk<SequencerConfiguration, void, { rejectValue: string }>(
+  "sequencerSlice/getSequencerConfiguration",
+  async (_, { rejectWithValue }) =>
+    handleThunk(async () => {
+      return await fetchSequencerConfiguration();
     }, rejectWithValue)
 );
 

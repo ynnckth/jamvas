@@ -1,7 +1,7 @@
 import "./GlobalSequencerControls.css";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { selectCurrentBpm, selectIsSequencerStopped } from "../../sequencerSelectors";
+import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../sequencerSelectors";
 import { setBpm } from "../../sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { MAX_BPM, MIN_BPM } from "../../constants";
@@ -15,7 +15,7 @@ interface Props {
 export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequence }) => {
   const dispatch = useAppDispatch();
   const isSequencerStopped = useAppSelector(selectIsSequencerStopped);
-  const currentBpm = useAppSelector(selectCurrentBpm);
+  const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
 
   const onKeyPressed = (event: KeyboardEvent) => {
     if (event.code === "Space") {
@@ -42,7 +42,7 @@ export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequ
           type="range"
           min={MIN_BPM}
           max={MAX_BPM}
-          defaultValue={currentBpm}
+          defaultValue={sequencerConfiguration?.bpm}
           onChange={debounce(onUpdateBpm, 200)}
         />
       </div>

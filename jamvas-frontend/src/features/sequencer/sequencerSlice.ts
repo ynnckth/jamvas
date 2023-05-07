@@ -1,22 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { drumSequencerState, leadSynthSequencerState } from "./instruments/instrumentsState";
-import { initializeTone, setBpm, setInstrumentGridValue, startSequencer, stopSequencer } from "./sequencerThunks";
-import { SequencerInstrument } from "./types/sequencerInstrument";
+import {
+  getSequencerConfiguration,
+  initializeTone,
+  setBpm,
+  setInstrumentGridValue,
+  startSequencer,
+  stopSequencer,
+} from "./sequencerThunks";
+import { SequencerConfiguration } from "./types/SequencerConfiguration";
 
 interface SequencerSliceState {
   isToneInitialized: boolean;
-  bpm: number;
   currentlyActiveStep: number;
   isSequencerStopped: boolean;
-  sequencerInstruments: SequencerInstrument[];
+  sequencerConfiguration?: SequencerConfiguration;
 }
 
 const initialState: SequencerSliceState = {
   isToneInitialized: false,
-  bpm: 120,
   currentlyActiveStep: 0,
   isSequencerStopped: true,
-  sequencerInstruments: [drumSequencerState, leadSynthSequencerState],
+  sequencerConfiguration: undefined,
 };
 
 export const sequencerSlice = createSlice({
@@ -32,8 +36,11 @@ export const sequencerSlice = createSlice({
       .addCase(initializeTone.fulfilled, (state) => {
         state.isToneInitialized = true;
       })
+      .addCase(getSequencerConfiguration.fulfilled, (state, action) => {
+        state.sequencerConfiguration = action.payload;
+      })
       .addCase(setBpm.fulfilled, (state, action) => {
-        state.bpm = action.payload;
+        if (state.sequencerConfiguration) state.sequencerConfiguration.bpm = action.payload;
       })
       .addCase(startSequencer.fulfilled, (state) => {
         state.isSequencerStopped = false;
@@ -41,9 +48,12 @@ export const sequencerSlice = createSlice({
       .addCase(stopSequencer.fulfilled, (state) => {
         state.isSequencerStopped = true;
       })
+      // TODO: move this logic to the backend and handle websocket config state update instead
       .addCase(setInstrumentGridValue.fulfilled, (state, action) => {
         const { instrument, trackIndex, stepIndex, newValue } = action.payload;
-        const updatedInstrument = state.sequencerInstruments.find((i) => i.id === instrument)!;
+        const updatedInstrument = state.sequencerConfiguration?.sequencerInstrumentStates.find(
+          (i) => i.instrumentId === instrument
+        )!;
         updatedInstrument.tracks[trackIndex].steps[stepIndex].isOn = newValue;
       });
   },

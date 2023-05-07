@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./GlobalSequencer.css";
 import { GridCell } from "../GridCell/GridCell";
 import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSelectors";
+import { selectCurrentStep, selectSequencerConfiguration } from "../../sequencerSelectors";
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
-import { SequencerInstrument } from "../../types/sequencerInstrument";
 import { SequencerControls } from "../GlobalSequencerControls/SequencerControls";
 import { InstrumentId } from "../../instruments/InstrumentId";
-import { setInstrumentGridValue } from "../../sequencerThunks";
+import { getSequencerConfiguration, setInstrumentGridValue } from "../../sequencerThunks";
 import useSequence from "../../useSequence";
 
-/**
- * Global sequencer containing several sub sequencer instruments
- */
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { startSequence, stopSequence } = useSequence();
-  const instrumentStates: SequencerInstrument[] = useAppSelector(selectSequencerInstruments);
+  const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
+  const { startSequence, stopSequence } = useSequence();
+
+  useEffect(() => {
+    dispatch(getSequencerConfiguration());
+  }, []);
 
   const onGridCellClicked = async (
     instrument: InstrumentId,
@@ -28,13 +28,19 @@ export const Sequencer: React.FC = () => {
     dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }));
   };
 
+  if (!sequencerConfiguration) {
+    return <></>;
+  }
+
   return (
     <div className="step-sequencer">
       <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
-      {instrumentStates.map((instrument) => (
-        <div className="sequencer-instrument" key={`instrument-${instrument.id}`}>
-          <div style={{ color: `${getInstrumentColor(instrument.id)}` }}>{instrument.name}</div>
+      {sequencerConfiguration.sequencerInstrumentStates.map((instrument) => (
+        <div className="sequencer-instrument" key={`instrument-${instrument.instrumentId}`}>
+          <div style={{ color: `${getInstrumentColor(instrument.instrumentId)}` }}>
+            {instrument.instrumentDisplayName}
+          </div>
           <div className="grid">
             {instrument.tracks.map((track, trackIndex) => (
               <div className="track" key={`track-${trackIndex}`}>
@@ -45,8 +51,8 @@ export const Sequencer: React.FC = () => {
                     key={`step-${stepIndex}`}
                     isCurrentlyActiveStep={stepIndex === currentlyActiveStep}
                     isOn={step.isOn}
-                    onClick={() => onGridCellClicked(instrument.id, trackIndex, stepIndex, !step.isOn)}
-                    fillColor={getInstrumentColor(instrument.id)}
+                    onClick={() => onGridCellClicked(instrument.instrumentId, trackIndex, stepIndex, !step.isOn)}
+                    fillColor={getInstrumentColor(instrument.instrumentId)}
                   />
                 ))}
               </div>

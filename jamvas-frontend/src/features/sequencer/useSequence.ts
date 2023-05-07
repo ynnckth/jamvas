@@ -5,20 +5,24 @@ import { useAppDispatch, useAppSelector } from "../../app/reduxHooks";
 import { setCurrentlyActiveStep } from "./sequencerSlice";
 import { Seconds } from "tone/build/esm/core/type/Units";
 import { startSequencer, stopSequencer } from "./sequencerThunks";
-import { selectSequencerInstruments } from "./sequencerSelectors";
+import { selectSequencerConfiguration } from "./sequencerSelectors";
 import DrumSequencer from "./instruments/drums/drumSequencer";
 import { InstrumentId } from "./instruments/InstrumentId";
 import LeadSynthSequencer from "./instruments/lead/leadSynthSequencer";
 
-const drumSequencer = new DrumSequencer(InstrumentId.DRUMS);
-const leadSynthSequencer = new LeadSynthSequencer(InstrumentId.LEAD);
-
 const useSequence = () => {
   const dispatch = useAppDispatch();
-  const instrumentStates = useAppSelector(selectSequencerInstruments);
+  const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const [sequence, setSequence] = useState<Sequence>();
+  const [drumSequencer, setDrumSequencer] = useState<DrumSequencer>();
+  const [leadSequencer, setLeadSequencer] = useState<LeadSynthSequencer>();
 
   useEffect(() => {
+    if (!sequencerConfiguration?.sequencerInstrumentStates) return;
+
+    setDrumSequencer(new DrumSequencer(InstrumentId.DRUMS));
+    setLeadSequencer(new LeadSynthSequencer(InstrumentId.LEAD));
+
     if (!sequence) {
       const newSequence = new Sequence(
         (time, currentStep) => {
@@ -36,11 +40,16 @@ const useSequence = () => {
       };
       setSequence(sequence);
     }
-  }, [sequence, instrumentStates]);
+  }, [sequence, sequencerConfiguration?.sequencerInstrumentStates]);
 
   const playAllTracksAtCurrentStep = (currentStep: number, time: Seconds) => {
-    [drumSequencer, leadSynthSequencer].forEach((instrument) => {
-      const currentInstrumentState = instrumentStates.find((instrumentState) => instrumentState.id === instrument.id)!;
+    if (!drumSequencer || !leadSequencer || !sequencerConfiguration) {
+      return;
+    }
+    [drumSequencer, leadSequencer].forEach((instrument) => {
+      const currentInstrumentState = sequencerConfiguration.sequencerInstrumentStates.find(
+        (instrumentState) => instrumentState.instrumentId === instrument.id
+      )!;
       currentInstrumentState.tracks.forEach((track) => {
         if (track.steps[currentStep].isOn) {
           instrument.play(track.name, time);

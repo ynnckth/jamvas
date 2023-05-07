@@ -12,8 +12,12 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Jamvas</h1>
-      {!user && <UserRegistrationModal />}
+      {!user && (
+        <>
+          <h1>Jamvas</h1>
+          <UserRegistrationModal />
+        </>
+      )}
       {user && isToneInitialized && <Sequencer />}
     </div>
   );
