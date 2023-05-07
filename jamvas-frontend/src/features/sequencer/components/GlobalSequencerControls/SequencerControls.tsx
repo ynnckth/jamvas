@@ -12,7 +12,7 @@ interface Props {
   onStopSequence: () => void;
 }
 
-export const GlobalSequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequence }) => {
+export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequence }) => {
   const dispatch = useAppDispatch();
   const isSequencerStopped = useAppSelector(selectIsSequencerStopped);
   const currentBpm = useAppSelector(selectCurrentBpm);

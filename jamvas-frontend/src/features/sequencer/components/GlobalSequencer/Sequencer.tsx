@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
 import { selectCurrentStep, selectSequencerInstruments } from "../../sequencerSelectors";
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerInstrument } from "../../types/sequencerInstrument";
-import { GlobalSequencerControls } from "../GlobalSequencerControls/GlobalSequencerControls";
+import { SequencerControls } from "../GlobalSequencerControls/SequencerControls";
 import { InstrumentId } from "../../instruments/InstrumentId";
 import { setInstrumentGridValue } from "../../sequencerThunks";
 import useSequence from "../../useSequence";
@@ -13,7 +13,7 @@ import useSequence from "../../useSequence";
 /**
  * Global sequencer containing several sub sequencer instruments
  */
-export const GlobalSequencer: React.FC = () => {
+export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { startSequence, stopSequence } = useSequence();
   const instrumentStates: SequencerInstrument[] = useAppSelector(selectSequencerInstruments);
@@ -30,7 +30,7 @@ export const GlobalSequencer: React.FC = () => {
 
   return (
     <div className="step-sequencer">
-      <GlobalSequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
+      <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
       {instrumentStates.map((instrument) => (
         <div className="sequencer-instrument" key={`instrument-${instrument.id}`}>

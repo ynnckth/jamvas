@@ -15,5 +15,6 @@ export class UsersService {
       throw new IllegalArgumentException('Username cannot be empty');
     }
     return this.usersRepository.create(newUser);
+    // TODO: broadcast new user was registered over websocket
   }
 }

@@ -1,12 +1,10 @@
-import {
-  combineReducers,
-  configureStore,
-  PreloadedState,
-} from "@reduxjs/toolkit";
+import { combineReducers, configureStore, PreloadedState } from "@reduxjs/toolkit";
 import sequencerReducer from "../features/sequencer/sequencerSlice";
+import sessionReducer from "../features/session/sessionSlice";
 
 const rootReducer = combineReducers({
   sequencerSlice: sequencerReducer,
+  sessionSlice: sessionReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) =>

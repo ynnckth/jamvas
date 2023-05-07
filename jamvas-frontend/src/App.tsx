@@ -1,36 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
-import { GlobalSequencer } from "./features/sequencer/components/GlobalSequencer/GlobalSequencer";
-import { useAppDispatch, useAppSelector } from "./app/reduxHooks";
+import { Sequencer } from "./features/sequencer/components/GlobalSequencer/Sequencer";
+import { useAppSelector } from "./app/reduxHooks";
 import { selectIsToneInitialized } from "./features/sequencer/sequencerSelectors";
-import { initializeTone } from "./features/sequencer/sequencerThunks";
-import { fetchUsers } from "./api/userApi";
+import UserRegistrationModal from "./features/session/components/UserRegistrationModal/UserRegistrationModal";
+import { selectUser } from "./features/session/sessionSelectors";
 
 const App: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
   const isToneInitialized = useAppSelector(selectIsToneInitialized);
-
-  // TODO: remove, only here for testing integration with backend
-  useEffect(() => {
-    fetchUsers().then((users) => console.log(users));
-  });
 
   return (
     <div className="App">
       <h1>Jamvas</h1>
-      {!isToneInitialized ? (
-        <div
-          style={{ border: "1px solid var(--cyan)", borderRadius: "5px", color: "var(--cyan)" }}
-          onClick={async () => {
-            // TODO: show pop-up with username form, upon confirmation, proceed
-            dispatch(initializeTone());
-          }}
-        >
-          Start
-        </div>
-      ) : (
-        <GlobalSequencer />
-      )}
+      {!user && <UserRegistrationModal />}
+      {user && isToneInitialized && <Sequencer />}
     </div>
   );
 };
