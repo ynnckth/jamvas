@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { IllegalArgumentException } from '../exception/IllegalArgumentException';
+import { SessionGateway } from '../sequencer/sessionGateway';
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository, private sessionGateway: SessionGateway) {}
 
   getAllUsers(): Promise<User[]> {
     return this.usersRepository.getAll();
   }
 
-  registerNewUser(newUser: Omit<User, 'id'>): Promise<User> {
+  async registerNewUser(newUser: Omit<User, 'id'>): Promise<User> {
     if (!newUser.name) {
       throw new IllegalArgumentException('Username cannot be empty');
     }
-    return this.usersRepository.create(newUser);
-    // TODO: broadcast new user was registered over websocket
+    const allUsers = await this.usersRepository.getAll();
+    if (allUsers.some((user) => user.name === newUser.name)) {
+      throw new IllegalArgumentException('Username already exists');
+    }
+    const createdUser = await this.usersRepository.create(newUser);
+    this.sessionGateway.broadcastUserJoinedSession(createdUser);
+    return createdUser;
   }
 }

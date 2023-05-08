@@ -17,7 +17,7 @@ export const Sequencer: React.FC = () => {
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
   const { startSequence, stopSequence } = useSequence();
-  const { socket, onSequencerConfigurationUpdated } = useSequencerSocket();
+  const { socket, onSequencerConfigurationUpdated, onUserJoinedSession } = useSequencerSocket();
 
   useEffect(() => {
     dispatch(getSequencerConfiguration());
@@ -28,6 +28,10 @@ export const Sequencer: React.FC = () => {
     onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
       dispatch(setSequencerConfiguration(updatedConfig));
       console.log("Received config update", updatedConfig);
+    });
+
+    onUserJoinedSession((newUser) => {
+      console.log("Received user joined session event", newUser);
     });
   }, [socket]);
 

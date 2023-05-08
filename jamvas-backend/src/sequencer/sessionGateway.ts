@@ -10,9 +10,10 @@ import { SequencerConfiguration } from './sequencer-configuration';
 import { Logger } from '@nestjs/common';
 
 @WebSocketGateway({ cors: true })
-export class SequencerGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class SessionGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   public static readonly EVENT_SEQUENCER_CONFIG_UPDATED = 'configUpdated';
-  private readonly logger = new Logger(SequencerGateway.name);
+  public static readonly EVENT_USER_JOINED_SESSION = 'userJoined';
+  private readonly logger = new Logger(SessionGateway.name);
 
   @WebSocketServer() private websocketServer: Server;
 
@@ -30,6 +31,11 @@ export class SequencerGateway implements OnGatewayInit, OnGatewayConnection, OnG
 
   broadcastSequencerConfigurationUpdate(updatedConfiguration: SequencerConfiguration) {
     this.logger.log('Broadcasting sequencer configuration update');
-    this.websocketServer.emit(SequencerGateway.EVENT_SEQUENCER_CONFIG_UPDATED, updatedConfiguration);
+    this.websocketServer.emit(SessionGateway.EVENT_SEQUENCER_CONFIG_UPDATED, updatedConfiguration);
+  }
+
+  broadcastUserJoinedSession(newUser: User) {
+    this.logger.log('Broadcasting user joined session');
+    this.websocketServer.emit(SessionGateway.EVENT_USER_JOINED_SESSION, newUser);
   }
 }

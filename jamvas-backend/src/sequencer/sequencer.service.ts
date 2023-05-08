@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { SequencerRepository } from './sequencer.repository';
 import { SequencerConfiguration } from './sequencer-configuration';
 import { InstrumentId } from './instrument-id';
-import { SequencerGateway } from './sequencer.gateway';
+import { SessionGateway } from './sessionGateway';
 
 @Injectable()
 export class SequencerService {
-  constructor(private sequencerRepository: SequencerRepository, private sequencerGateway: SequencerGateway) {}
+  constructor(private sequencerRepository: SequencerRepository, private sessionGateway: SessionGateway) {}
 
   getConfiguration(): Promise<SequencerConfiguration> {
     return this.sequencerRepository.getConfiguration();
@@ -20,7 +20,7 @@ export class SequencerService {
     instrumentToUpdate.tracks[trackIndex].steps[stepIndex].isOn = newValue;
 
     const updatedConfiguration = await this.sequencerRepository.saveConfiguration(sequencerConfiguration);
-    this.sequencerGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
+    this.sessionGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
     return updatedConfiguration;
   }
 
@@ -29,7 +29,7 @@ export class SequencerService {
     sequencerConfiguration.bpm = bpm;
 
     const updatedConfiguration = await this.sequencerRepository.saveConfiguration(sequencerConfiguration);
-    this.sequencerGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
+    this.sessionGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
     return updatedConfiguration;
   }
 }

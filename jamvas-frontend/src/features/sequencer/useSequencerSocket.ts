@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
-import { SequencerEvent } from "../../api/event";
+import { WebsocketEvent } from "../../api/event";
+import { User } from "../../types/User";
 
 const SOCKET_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -40,8 +41,14 @@ export const useSequencerSocket = () => {
   };
 
   const onSequencerConfigurationUpdated = (handler: (updatedConfig: SequencerConfiguration) => void) => {
-    on(SequencerEvent.CONFIGURATION_UPDATED, (updatedConfig: SequencerConfiguration) => handler(updatedConfig));
+    on(WebsocketEvent.SEQUENCER_CONFIGURATION_UPDATED, (updatedConfig: SequencerConfiguration) =>
+      handler(updatedConfig)
+    );
   };
 
-  return { socket, emit, on, onSequencerConfigurationUpdated };
+  const onUserJoinedSession = (handler: (newUser: User) => void) => {
+    on(WebsocketEvent.USER_JOINED_SESSION, (newUser: User) => handler(newUser));
+  };
+
+  return { socket, emit, on, onSequencerConfigurationUpdated, onUserJoinedSession };
 };
