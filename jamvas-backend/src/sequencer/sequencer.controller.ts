@@ -20,7 +20,6 @@ export class SequencerController {
     this.logger.log(
       `Updating sequencer configuration for instrument ${request.instrumentId}: Setting tracks[${request.trackIndex}].steps[${request.stepIndex}] = ${request.newValue}`,
     );
-    // TODO: broadcast updated sequencer configuration to all users via websocket
     return this.sequencerService.updateInstrumentGrid(
       request.instrumentId,
       request.trackIndex,

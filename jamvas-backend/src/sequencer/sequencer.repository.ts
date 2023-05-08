@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SequencerConfiguration, Step } from './sequencer-configuration';
 import { InstrumentId } from './instrument-id';
 import { dorianScale, getScaleForOctave } from './lead/getScale';
 
 @Injectable()
 export class SequencerRepository {
+  private readonly logger = new Logger(SequencerRepository.name);
+
   public static readonly DEFAULT_BPM = 120;
   public static readonly TOTAL_NO_STEPS = 16;
 
@@ -36,6 +38,7 @@ export class SequencerRepository {
 
   async saveConfiguration(sequencerConfiguration: SequencerConfiguration): Promise<SequencerConfiguration> {
     this.sequencerConfiguration = sequencerConfiguration;
+    this.logger.log('Saved updated sequencer configuration');
     return this.sequencerConfiguration;
   }
 
