@@ -3,7 +3,7 @@ import { handleThunk } from "../../app/handleThunk";
 import { InstrumentId } from "./instruments/InstrumentId";
 import { start, Transport } from "tone";
 import { MAX_BPM, MIN_BPM } from "./constants";
-import { fetchSequencerConfiguration, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
+import { fetchSequencerConfiguration, updateBpm, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
 
 export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
@@ -30,8 +30,9 @@ export const setBpm = createAsyncThunk<number, { newBpm: number }, { rejectValue
       if (newBpm < MIN_BPM || newBpm > MAX_BPM) {
         throw new Error(`${newBpm} BPM is not within allowed boundaries`);
       }
-      Transport.bpm.rampTo(newBpm, 1);
-      return newBpm;
+      const updatedConfig = await updateBpm(newBpm);
+      Transport.bpm.rampTo(updatedConfig.bpm, 1);
+      return updatedConfig.bpm;
     }, rejectWithValue)
 );
 

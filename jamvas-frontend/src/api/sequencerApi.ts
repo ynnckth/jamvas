@@ -36,3 +36,18 @@ export const updateSequencerInstrumentGrid = async (
   }
   return await response.json();
 };
+
+export const updateBpm = async (newBpm: number): Promise<SequencerConfiguration> => {
+  const response = await fetch(`${baseUrl}/bpm`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ bpm: newBpm }),
+  });
+  if (!response.ok) {
+    // TODO: use response error instead
+    throw new Error("Failed to update bpm");
+  }
+  return await response.json();
+};

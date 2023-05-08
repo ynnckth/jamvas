@@ -27,4 +27,10 @@ export class SequencerController {
       request.newValue,
     );
   }
+
+  @Put('bpm')
+  async updateBpm(@Body() request: any): Promise<SequencerConfiguration> {
+    this.logger.log(`Updating bpm to ${request.bpm}`);
+    return this.sequencerService.updateBpm(request.bpm);
+  }
 }

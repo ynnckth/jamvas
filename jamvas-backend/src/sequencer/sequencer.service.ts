@@ -23,4 +23,13 @@ export class SequencerService {
     this.sequencerGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
     return updatedConfiguration;
   }
+
+  async updateBpm(bpm) {
+    const sequencerConfiguration = await this.sequencerRepository.getConfiguration();
+    sequencerConfiguration.bpm = bpm;
+
+    const updatedConfiguration = await this.sequencerRepository.saveConfiguration(sequencerConfiguration);
+    this.sequencerGateway.broadcastSequencerConfigurationUpdate(updatedConfiguration);
+    return updatedConfiguration;
+  }
 }
