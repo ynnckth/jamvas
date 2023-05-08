@@ -34,6 +34,10 @@ export const theme: Record<string, any> = extendTheme(
           fontSize: "3.2em",
           lineHeight: 1.1,
         },
+        h2: {
+          fontSize: "1.8em",
+          lineHeight: 1.1,
+        },
         a: {
           fontWeight: 500,
           textDecoration: "inherit",

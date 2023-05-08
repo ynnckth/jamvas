@@ -14,6 +14,7 @@ import { setSequencerConfiguration } from "../../sequencerSlice";
 import { updateUsersInSession } from "../../../session/sessionSlice";
 import { selectAllUsersInSession, selectUser } from "../../../session/sessionSelectors";
 import { WebsocketEvent } from "../../../../api/event";
+import { Box } from "@chakra-ui/react";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +57,8 @@ export const Sequencer: React.FC = () => {
 
   return (
     <div className="step-sequencer">
-      <div>{usersInSession.map((u) => u.name).join(", ")}</div>
+      <Box>Playing in this session</Box>
+      <Box color="var(--purple)">{usersInSession.map((u) => u.name).join(", ")}</Box>
       <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
       {sequencerConfiguration.sequencerInstrumentStates.map((instrument) => (
