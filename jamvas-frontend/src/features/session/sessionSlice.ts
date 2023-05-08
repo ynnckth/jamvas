@@ -1,23 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/User";
 import { registerUser } from "./sessionThunks";
 
 interface SessionSliceState {
-  user?: User;
+  self?: User;
+  otherUsersInSession: User[];
 }
 
 const initialState: SessionSliceState = {
-  user: undefined,
+  self: undefined,
+  otherUsersInSession: [],
 };
 
 export const sessionSlice = createSlice({
   name: "sessionSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    updateUsersInSession: (state, action: PayloadAction<User[]>) => {
+      state.otherUsersInSession = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.self = action.payload;
     });
   },
 });
+export const { updateUsersInSession } = sessionSlice.actions;
 export default sessionSlice.reducer;

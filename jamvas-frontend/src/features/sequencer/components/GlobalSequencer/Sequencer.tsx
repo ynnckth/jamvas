@@ -11,6 +11,7 @@ import useSequence from "../../useSequence";
 import { useSequencerSocket } from "../../useSequencerSocket";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 import { setSequencerConfiguration } from "../../sequencerSlice";
+import { updateUsersInSession } from "../../../session/sessionSlice";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,11 +28,13 @@ export const Sequencer: React.FC = () => {
     if (!socket) return;
     onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
       dispatch(setSequencerConfiguration(updatedConfig));
-      console.log("Received config update", updatedConfig);
+      console.log("Received config update event", updatedConfig);
     });
 
-    onUserJoinedSession((newUser) => {
-      console.log("Received user joined session event", newUser);
+    onUserJoinedSession((updatedUsers) => {
+      dispatch(updateUsersInSession(updatedUsers));
+      // TODO: display toast
+      console.log("Received session users updated event", updatedUsers);
     });
   }, [socket]);
 

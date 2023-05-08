@@ -20,7 +20,8 @@ export class UsersService {
       throw new IllegalArgumentException('Username already exists');
     }
     const createdUser = await this.usersRepository.create(newUser);
-    this.sessionGateway.broadcastUserJoinedSession(createdUser);
+    const updatedUsers = await this.usersRepository.getAll();
+    this.sessionGateway.broadcastSessionUsersUpdated(updatedUsers);
     return createdUser;
   }
 }

@@ -1,3 +1,4 @@
 import { RootState } from "../../app/store";
 
-export const selectUser = (state: RootState) => state.sessionSlice.user;
+export const selectUser = (state: RootState) => state.sessionSlice.self;
+export const selectAllUsersInSession = (state: RootState) => state.sessionSlice.otherUsersInSession;

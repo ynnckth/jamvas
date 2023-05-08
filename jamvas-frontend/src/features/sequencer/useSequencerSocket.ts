@@ -46,8 +46,8 @@ export const useSequencerSocket = () => {
     );
   };
 
-  const onUserJoinedSession = (handler: (newUser: User) => void) => {
-    on(WebsocketEvent.USER_JOINED_SESSION, (newUser: User) => handler(newUser));
+  const onUserJoinedSession = (handler: (updatedUsers: User[]) => void) => {
+    on(WebsocketEvent.USERS_IN_SESSION_UPDATED, (updatedUsers: User[]) => handler(updatedUsers));
   };
 
   return { socket, emit, on, onSequencerConfigurationUpdated, onUserJoinedSession };
