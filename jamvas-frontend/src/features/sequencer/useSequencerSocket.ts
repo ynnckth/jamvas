@@ -40,6 +40,10 @@ export const useSequencerSocket = () => {
     socket?.on(event, handler);
   };
 
+  const connectClient = (userId: string) => {
+    emit(WebsocketEvent.CONNECT_CLIENT, { userId: userId, socketClientId: socket?.id });
+  };
+
   const onSequencerConfigurationUpdated = (handler: (updatedConfig: SequencerConfiguration) => void) => {
     on(WebsocketEvent.SEQUENCER_CONFIGURATION_UPDATED, (updatedConfig: SequencerConfiguration) =>
       handler(updatedConfig)
@@ -50,5 +54,5 @@ export const useSequencerSocket = () => {
     on(WebsocketEvent.USERS_IN_SESSION_UPDATED, (updatedUsers: User[]) => handler(updatedUsers));
   };
 
-  return { socket, emit, on, onSequencerConfigurationUpdated, onUserJoinedSession };
+  return { socket, emit, on, connectClient, onSequencerConfigurationUpdated, onUserJoinedSession };
 };

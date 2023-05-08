@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/User";
-import { registerUser } from "./sessionThunks";
+import { getAllUsers, registerUser } from "./sessionThunks";
 
 interface SessionSliceState {
   self?: User;
-  otherUsersInSession: User[];
+  allUsersInSession: User[];
 }
 
 const initialState: SessionSliceState = {
   self: undefined,
-  otherUsersInSession: [],
+  allUsersInSession: [],
 };
 
 export const sessionSlice = createSlice({
@@ -17,12 +17,15 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     updateUsersInSession: (state, action: PayloadAction<User[]>) => {
-      state.otherUsersInSession = action.payload;
+      state.allUsersInSession = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.self = action.payload;
+    });
+    builder.addCase(getAllUsers.fulfilled, (state, action) => {
+      state.allUsersInSession = action.payload;
     });
   },
 });

@@ -14,11 +14,11 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { initializeTone } from "../../../sequencer/sequencerThunks";
+import { getSequencerConfiguration, initializeTone } from "../../../sequencer/sequencerThunks";
 import { useAppDispatch } from "../../../../app/reduxHooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { registerUser } from "../../sessionThunks";
+import { getAllUsers, registerUser } from "../../sessionThunks";
 
 const UserRegistrationModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +32,7 @@ const UserRegistrationModal: React.FC = () => {
     }),
     onSubmit: async (values) => {
       await dispatch(registerUser({ name: values.username }));
-      await dispatch(initializeTone());
+      await Promise.all([dispatch(getAllUsers()), dispatch(getSequencerConfiguration()), dispatch(initializeTone())]);
       onClose();
     },
   });

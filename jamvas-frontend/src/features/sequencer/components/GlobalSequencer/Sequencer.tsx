@@ -6,26 +6,29 @@ import { selectCurrentStep, selectSequencerConfiguration } from "../../sequencer
 import { getInstrumentColor } from "../../instruments/getInstrumentColor";
 import { SequencerControls } from "../GlobalSequencerControls/SequencerControls";
 import { InstrumentId } from "../../instruments/InstrumentId";
-import { getSequencerConfiguration, setInstrumentGridValue } from "../../sequencerThunks";
+import { setInstrumentGridValue } from "../../sequencerThunks";
 import useSequence from "../../useSequence";
 import { useSequencerSocket } from "../../useSequencerSocket";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 import { setSequencerConfiguration } from "../../sequencerSlice";
 import { updateUsersInSession } from "../../../session/sessionSlice";
+import { selectAllUsersInSession, selectUser } from "../../../session/sessionSelectors";
+import { WebsocketEvent } from "../../../../api/event";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
+  const self = useAppSelector(selectUser);
+  const usersInSession = useAppSelector(selectAllUsersInSession);
   const { startSequence, stopSequence } = useSequence();
-  const { socket, onSequencerConfigurationUpdated, onUserJoinedSession } = useSequencerSocket();
+  const { socket, connectClient, onSequencerConfigurationUpdated, onUserJoinedSession } = useSequencerSocket();
 
   useEffect(() => {
-    dispatch(getSequencerConfiguration());
-  }, []);
+    if (!socket || !self) return;
 
-  useEffect(() => {
-    if (!socket) return;
+    socket.on(WebsocketEvent.CLIENT_SOCKET_CONNECTED, () => connectClient(self.id));
+
     onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
       dispatch(setSequencerConfiguration(updatedConfig));
       console.log("Received config update event", updatedConfig);
@@ -36,7 +39,7 @@ export const Sequencer: React.FC = () => {
       // TODO: display toast
       console.log("Received session users updated event", updatedUsers);
     });
-  }, [socket]);
+  }, [socket, self]);
 
   const onGridCellClicked = async (
     instrument: InstrumentId,
@@ -53,6 +56,7 @@ export const Sequencer: React.FC = () => {
 
   return (
     <div className="step-sequencer">
+      <div>{usersInSession.map((u) => u.name).join(", ")}</div>
       <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
       {sequencerConfiguration.sequencerInstrumentStates.map((instrument) => (

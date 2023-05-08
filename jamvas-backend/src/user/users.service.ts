@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { IllegalArgumentException } from '../exception/IllegalArgumentException';
-import { SessionGateway } from '../sequencer/sessionGateway';
+import { SessionGateway } from '../session/sessionGateway';
 
 @Injectable()
 export class UsersService {
@@ -23,5 +23,9 @@ export class UsersService {
     const updatedUsers = await this.usersRepository.getAll();
     this.sessionGateway.broadcastSessionUsersUpdated(updatedUsers);
     return createdUser;
+  }
+
+  async deleteUser(userId: string) {
+    await this.usersRepository.deleteUser(userId);
   }
 }
