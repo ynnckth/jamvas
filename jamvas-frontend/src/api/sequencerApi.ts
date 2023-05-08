@@ -1,15 +1,11 @@
 import { SequencerConfiguration } from "../features/sequencer/types/SequencerConfiguration";
 import { InstrumentId } from "../features/sequencer/instruments/InstrumentId";
+import { get, put } from "./apiUtils";
 
 const baseUrl = `${import.meta.env.VITE_BACKEND_API_BASE_URL}/sequencer`;
 
 export const fetchSequencerConfiguration = async (): Promise<SequencerConfiguration> => {
-  const response = await fetch(baseUrl);
-  if (!response.ok) {
-    // TODO: use response error instead
-    throw new Error("Failed to fetch users");
-  }
-  return await response.json();
+  return await get<SequencerConfiguration>(baseUrl);
 };
 
 export const updateSequencerInstrumentGrid = async (
@@ -18,36 +14,14 @@ export const updateSequencerInstrumentGrid = async (
   stepIndex: number,
   newValue: boolean
 ): Promise<SequencerConfiguration> => {
-  const response = await fetch(`${baseUrl}/grid`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      instrumentId,
-      trackIndex,
-      stepIndex,
-      newValue,
-    }),
+  return await put<SequencerConfiguration>(`${baseUrl}/grid`, {
+    instrumentId,
+    trackIndex,
+    stepIndex,
+    newValue,
   });
-  if (!response.ok) {
-    // TODO: use response error instead
-    throw new Error("Failed to update sequencer grid");
-  }
-  return await response.json();
 };
 
 export const updateBpm = async (newBpm: number): Promise<SequencerConfiguration> => {
-  const response = await fetch(`${baseUrl}/bpm`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ bpm: newBpm }),
-  });
-  if (!response.ok) {
-    // TODO: use response error instead
-    throw new Error("Failed to update bpm");
-  }
-  return await response.json();
+  return await put<SequencerConfiguration>(`${baseUrl}/bpm`, { bpm: newBpm });
 };
