@@ -8,16 +8,26 @@ import { SequencerControls } from "../GlobalSequencerControls/SequencerControls"
 import { InstrumentId } from "../../instruments/InstrumentId";
 import { getSequencerConfiguration, setInstrumentGridValue } from "../../sequencerThunks";
 import useSequence from "../../useSequence";
+import { useSequencerSocket } from "../../useSequencerSocket";
+import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
   const { startSequence, stopSequence } = useSequence();
+  const { socket, on } = useSequencerSocket();
 
   useEffect(() => {
     dispatch(getSequencerConfiguration());
   }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+    on("configUpdated", (updatedConfig: SequencerConfiguration) =>
+      console.log("Received config update", updatedConfig)
+    );
+  }, [socket]);
 
   const onGridCellClicked = async (
     instrument: InstrumentId,

@@ -1,6 +1,6 @@
 import { User } from "../types/User";
 
-const baseUrl = `${import.meta.env.VITE_BACKEND_BASE_URL}/users`;
+const baseUrl = `${import.meta.env.VITE_BACKEND_API_BASE_URL}/users`;
 
 // TODO: refactor - extract an api-base utility to handle GET/POST/PUT/DELETE
 export const sendRegisterUser = async (newUser: Omit<User, "id">): Promise<User> => {

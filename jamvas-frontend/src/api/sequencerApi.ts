@@ -1,7 +1,7 @@
 import { SequencerConfiguration } from "../features/sequencer/types/SequencerConfiguration";
 import { InstrumentId } from "../features/sequencer/instruments/InstrumentId";
 
-const baseUrl = `${import.meta.env.VITE_BACKEND_BASE_URL}/sequencer`;
+const baseUrl = `${import.meta.env.VITE_BACKEND_API_BASE_URL}/sequencer`;
 
 export const fetchSequencerConfiguration = async (): Promise<SequencerConfiguration> => {
   const response = await fetch(baseUrl);
