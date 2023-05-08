@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
+import { SequencerConfiguration } from "./types/SequencerConfiguration";
+import { SequencerEvent } from "../../api/event";
 
 const SOCKET_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -37,5 +39,9 @@ export const useSequencerSocket = () => {
     socket?.on(event, handler);
   };
 
-  return { socket, emit, on };
+  const onSequencerConfigurationUpdated = (handler: (updatedConfig: SequencerConfiguration) => void) => {
+    on(SequencerEvent.CONFIGURATION_UPDATED, (updatedConfig: SequencerConfiguration) => handler(updatedConfig));
+  };
+
+  return { socket, emit, on, onSequencerConfigurationUpdated };
 };

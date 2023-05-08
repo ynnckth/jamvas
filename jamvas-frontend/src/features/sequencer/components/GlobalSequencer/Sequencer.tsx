@@ -10,13 +10,14 @@ import { getSequencerConfiguration, setInstrumentGridValue } from "../../sequenc
 import useSequence from "../../useSequence";
 import { useSequencerSocket } from "../../useSequencerSocket";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
+import { setSequencerConfiguration } from "../../sequencerSlice";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
   const { startSequence, stopSequence } = useSequence();
-  const { socket, on } = useSequencerSocket();
+  const { socket, onSequencerConfigurationUpdated } = useSequencerSocket();
 
   useEffect(() => {
     dispatch(getSequencerConfiguration());
@@ -24,9 +25,10 @@ export const Sequencer: React.FC = () => {
 
   useEffect(() => {
     if (!socket) return;
-    on("configUpdated", (updatedConfig: SequencerConfiguration) =>
-      console.log("Received config update", updatedConfig)
-    );
+    onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
+      dispatch(setSequencerConfiguration(updatedConfig));
+      console.log("Received config update", updatedConfig);
+    });
   }, [socket]);
 
   const onGridCellClicked = async (

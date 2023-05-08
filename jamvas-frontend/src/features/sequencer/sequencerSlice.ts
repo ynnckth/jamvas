@@ -30,6 +30,9 @@ export const sequencerSlice = createSlice({
     setCurrentlyActiveStep: (state, action: PayloadAction<number>) => {
       state.currentlyActiveStep = action.payload;
     },
+    setSequencerConfiguration: (state, action: PayloadAction<SequencerConfiguration>) => {
+      state.sequencerConfiguration = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,5 +57,5 @@ export const sequencerSlice = createSlice({
   },
 });
 
-export const { setCurrentlyActiveStep } = sequencerSlice.actions;
+export const { setCurrentlyActiveStep, setSequencerConfiguration } = sequencerSlice.actions;
 export default sequencerSlice.reducer;
