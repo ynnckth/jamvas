@@ -15,6 +15,9 @@ import { updateUsersInSession } from "../../../session/sessionSlice";
 import { selectAllUsersInSession, selectUser } from "../../../session/sessionSelectors";
 import { WebsocketEvent } from "../../../../api/event";
 import { Box } from "@chakra-ui/react";
+import { Track } from "../../types/track";
+import { GiHighKick, GiPointyHat, GiPunchBlast, GiSlap, GiTopHat } from "react-icons/gi";
+import { FaDrum } from "react-icons/fa";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -37,7 +40,6 @@ export const Sequencer: React.FC = () => {
 
     onUserJoinedSession((updatedUsers) => {
       dispatch(updateUsersInSession(updatedUsers));
-      // TODO: display toast
       console.log("Received session users updated event", updatedUsers);
     });
   }, [socket, self]);
@@ -55,6 +57,23 @@ export const Sequencer: React.FC = () => {
     return <></>;
   }
 
+  const renderDrumTrackIcon = (track: Track) => {
+    switch (track.name) {
+      case "kick":
+        return <GiHighKick />;
+      case "snare":
+        return <GiPunchBlast />;
+      case "clap":
+        return <GiSlap />;
+      case "hihat_open":
+        return <GiPointyHat />;
+      case "hihat_closed":
+        return <GiTopHat />;
+      default:
+        return <FaDrum />;
+    }
+  };
+
   return (
     <div className="step-sequencer">
       <Box>Playing in this session</Box>
@@ -69,8 +88,12 @@ export const Sequencer: React.FC = () => {
           <div className="grid">
             {instrument.tracks.map((track, trackIndex) => (
               <div className="track" key={`track-${trackIndex}`}>
-                {/* TODO: add track icon logo */}
-                <div>{track.name.at(0)}</div>
+                {instrument.instrumentId === InstrumentId.DRUMS ? (
+                  <Box width="25px">{renderDrumTrackIcon(track)}</Box>
+                ) : (
+                  <Box width="25px">{track.name.at(0)}</Box>
+                )}
+
                 {track.steps.map((step, stepIndex) => (
                   <GridCell
                     key={`step-${stepIndex}`}
