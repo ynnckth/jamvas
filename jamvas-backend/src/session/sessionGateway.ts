@@ -36,12 +36,15 @@ export class SessionGateway implements OnGatewayInit, OnGatewayConnection, OnGat
   async handleDisconnect(client: any): Promise<void> {
     this.logger.log(`Websocket client disconnected: ${client.id}`);
     const sessionUser = this.sessionService.getSessionUser(client.id);
-    await this.sessionService.removeUserFromSession(sessionUser.userId);
+    const updatedUsers = await this.sessionService.removeUserFromSession(sessionUser.userId);
+    this.broadcastSessionUsersUpdated(updatedUsers);
   }
 
   @SubscribeMessage(SessionGateway.EVENT_CONNECT_CLIENT)
   handleConnectClientEvent(@MessageBody() sessionUser: SessionUser): void {
-    this.logger.log(`Client connected - userId: ${sessionUser.userId}, socketClientId: ${sessionUser.socketClientId}`);
+    this.logger.log(
+      `Websocket client connected - userId: ${sessionUser.userId}, socketClientId: ${sessionUser.socketClientId}`,
+    );
     this.sessionService.addUserToSession(sessionUser);
   }
 
@@ -51,7 +54,7 @@ export class SessionGateway implements OnGatewayInit, OnGatewayConnection, OnGat
   }
 
   broadcastSessionUsersUpdated(updatedUsers: User[]) {
-    this.logger.log('Broadcasting user joined session');
+    this.logger.log('Broadcasting session users updated');
     this.websocketServer.emit(SessionGateway.EVENT_USERS_IN_SESSION_UPDATED, updatedUsers);
   }
 }

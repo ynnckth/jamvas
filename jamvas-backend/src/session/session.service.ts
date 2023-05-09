@@ -11,9 +11,10 @@ export class SessionService {
     return this.sessionRepository.getSessionUser(socketClientId);
   }
 
-  async removeUserFromSession(userId: string) {
+  async removeUserFromSession(userId: string): Promise<User[]> {
     this.sessionRepository.removeUserFromSession(userId);
     await this.usersRepository.deleteUser(userId);
+    return await this.usersRepository.getAll();
   }
 
   addUserToSession(sessionUser: SessionUser) {
