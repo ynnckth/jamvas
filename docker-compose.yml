@@ -7,5 +7,14 @@ services:
       context: ./jamvas-backend
     ports:
       # Bind host port 8000 to container port 3000
-      # Will be available at http://localhost:8000
+      # Will be available on the host at http://localhost:8000
       - "8000:3000"
+
+  jamvas-frontend:
+    container_name: jamvas-frontend
+    build:
+      context: ./jamvas-frontend
+    ports:
+      # Bind host port 8080 to container port 3000
+      # Will be available on the host at http://localhost:8080
+      - "8080:3000"
