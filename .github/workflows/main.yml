@@ -29,5 +29,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./jamvas-backend
+          file: ./jamvas-backend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
