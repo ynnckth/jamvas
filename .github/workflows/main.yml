@@ -52,6 +52,8 @@ jobs:
       - name: ⚒️ Build for demo environment
         run: |
           cd jamvas-frontend
+          VITE_BACKEND_BASE_URL=${{ vars.BACKEND_BASE_URL }}
+          VITE_BACKEND_API_BASE_URL=${{ vars.BACKEND_API_BASE_URL }}
           npm run build
         env:
           VITE_BACKEND_BASE_URL: ${{ vars.BACKEND_BASE_URL }}
