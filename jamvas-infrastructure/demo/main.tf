@@ -55,13 +55,12 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
       docker_image = var.github_packages_docker_image
       docker_image_tag = var.github_packages_docker_image_tag
     }
+    always_on = false
   }
 
   app_settings = {
     DOCKER_REGISTRY_SERVER_URL = var.github_packages_server_url
     DOCKER_REGISTRY_SERVER_USERNAME = var.github_packages_username
     DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages_password
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-    WEBSITE_HTTPLOGGING_RETENTION_DAYS = 5
   }
 }
