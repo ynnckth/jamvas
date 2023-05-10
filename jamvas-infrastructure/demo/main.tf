@@ -1,3 +1,8 @@
+# Using Terraform Cloud as the backend to manage the terraform state:
+# https://app.terraform.io
+#
+# Check the Azure Pricing Calculator calculate the expected infrastructure costs:
+# https://azure.microsoft.com/en-us/pricing/calculator/
 terraform {
   backend "remote" {
     hostname = "app.terraform.io"
