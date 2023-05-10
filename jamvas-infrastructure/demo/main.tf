@@ -51,8 +51,10 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
   service_plan_id = azurerm_service_plan.app_service_plan.id
 
   site_config {
-    linux_fx_version = "DOCKER|ghcr.io/ynnckth/jamvas:latest"
-    always_on = "true"
+    application_stack {
+      docker_image = "ghcr.io/ynnckth/jamvas"
+      docker_image_tag = "latest"
+    }
   }
 
   app_settings = {
