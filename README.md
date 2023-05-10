@@ -1,6 +1,8 @@
 # Jamvas
 *A musical sequencer canvas for multiplayer jamming*
 
+![CI](https://github.com/ynnckth/jamvas/actions/workflows/main.yml/badge.svg)
+
 ## Local development setup
 Run the backend locally in dev mode:
 ```shell
