@@ -52,15 +52,15 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
 
   site_config {
     application_stack {
-      docker_image = "ghcr.io/ynnckth/jamvas"
-      docker_image_tag = "latest"
+      docker_image = var.github_packages_docker_image
+      docker_image_tag = var.github_packages_docker_image_tag
     }
   }
 
   app_settings = {
-    DOCKER_REGISTRY_SERVER_URL = "https://ghcr.io"
-    DOCKER_REGISTRY_SERVER_USERNAME = var.github_packages.username
-    DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages.password
+    DOCKER_REGISTRY_SERVER_URL = var.github_packages_server_url
+    DOCKER_REGISTRY_SERVER_USERNAME = var.github_packages_username
+    DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages_password
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     WEBSITE_HTTPLOGGING_RETENTION_DAYS = 5
   }
