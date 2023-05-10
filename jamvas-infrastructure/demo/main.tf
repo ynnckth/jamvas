@@ -30,25 +30,20 @@ resource "azurerm_resource_group" "rg" {
 }
 
 # App Service Plan
-resource "azurerm_app_service_plan" "app_service_plan" {
+resource "azurerm_service_plan" "app_service_plan" {
   name = "${local.prefix}-app-service-plan"
-  location = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind = "Linux"
-  reserved = true
-  sku {
-    tier = "Free"
-    size = "F1"
-  }
+  location = azurerm_resource_group.rg.location
+  os_type = "Linux"
+  sku_name = "F1"
 }
 
 # App Service
-resource "azurerm_app_service" "jamvas-backend" {
+resource "azurerm_linux_web_app" "jamvas-backend" {
   name = "${local.prefix}-backend"
-  location = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.app_service_plan.id
-  https_only = true
+  location = azurerm_resource_group.rg.location
+  service_plan_id = azurerm_service_plan.app_service_plan.id
 
   site_config {
     linux_fx_version = "DOCKER|ghcr.io/ynnckth/jamvas:latest"
