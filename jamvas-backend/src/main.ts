@@ -6,7 +6,16 @@ import { GlobalExceptionFilter } from './exception/global-exception.filter';
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      'http://localhost:8080',
+      'http://127.0.0.1:8080',
+      'https://ynnckth.github.io',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  });
   app.useGlobalFilters(new GlobalExceptionFilter());
 
   const config = new DocumentBuilder()
