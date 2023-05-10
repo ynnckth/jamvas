@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode dev",
-    "build:demo": "tsc && vite build --mode demo",
     "preview": "vite preview"
   },
   "dependencies": {
