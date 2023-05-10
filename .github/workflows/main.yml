@@ -49,12 +49,20 @@ jobs:
           cd jamvas-frontend
           npm ci
 
+      - name: Print backend base url
+        run: |
+          echo "Backend base url ${{ vars.VITE_BACKEND_BASE_URL }}"
+          echo "Backend api base url ${{ vars.VITE_BACKEND_API_BASE_URL }}"
+
       - name: ⚒️ Build for demo environment
         run: |
           cd jamvas-frontend
           VITE_BACKEND_BASE_URL=${{ vars.VITE_BACKEND_BASE_URL }}
           VITE_BACKEND_API_BASE_URL=${{ vars.VITE_BACKEND_API_BASE_URL }}
           npm run build
+        env:
+          VITE_BACKEND_BASE_URL: ${{ vars.VITE_BACKEND_BASE_URL }}
+          VITE_BACKEND_API_BASE_URL: ${{ vars.VITE_BACKEND_API_BASE_URL }}
 
       - name: Setup Github Pages
         uses: actions/configure-pages@v3
