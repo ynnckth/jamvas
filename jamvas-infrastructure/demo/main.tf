@@ -24,7 +24,7 @@ provider "azurerm" {
 }
 
 locals {
-  location = "asia-south-east"
+  location = "southeastasia"
   prefix = "jamvas-demo"
 }
 
