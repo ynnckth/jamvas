@@ -49,10 +49,10 @@ jobs:
           cd jamvas-frontend
           npm ci
 
-      - name: ⚒️ Build
+      - name: ⚒️ Build for demo environment
         run: |
           cd jamvas-frontend
-          npm run build
+          npm run build:demo
 
       - name: Setup Github Pages
         uses: actions/configure-pages@v3
