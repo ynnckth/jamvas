@@ -65,7 +65,15 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
   }
 }
 
-# Application Insights (monitoring)
+# Log analytics workspace
+resource "azurerm_log_analytics_workspace" "jamvas-log-analytics-workspace" {
+  name                = "${local.prefix}-log-analytics-workspace"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Free"
+  retention_in_days   = 7
+}
+
 resource "azurerm_application_insights" "jamvas-app-insights" {
   name                 = "${local.prefix}-app-insights"
   location             = azurerm_resource_group.rg.location
@@ -73,6 +81,7 @@ resource "azurerm_application_insights" "jamvas-app-insights" {
   application_type     = "other"
   retention_in_days    = 30
   daily_data_cap_in_gb = 0.05 # 50MB
+  workspace_id         = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
 }
 
 output "app_insights_instrumentation_key" {
