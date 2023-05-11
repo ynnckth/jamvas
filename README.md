@@ -45,3 +45,9 @@ The backend is hosted on an Azure App Service:
 > https://jamvas.azurewebsites.net/api
 
 For more details on the infrastructure, check `./jamvas-infrastructure`.
+
+## Relevant links
+- [Terraform Cloud](https://app.terraform.io/app/ynnckth/workspaces/jamvas)
+- [Azure Portal](https://portal.azure.com/)
+- [Github Repository](https://github.com/ynnckth/jamvas)
+- [SonarCloud](https://sonarcloud.io/project/overview?id=ynnckth_jamvas)
