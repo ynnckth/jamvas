@@ -66,6 +66,12 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
   }
 
   logs {
+    http_logs {
+      file_system {
+        retention_in_days = 1
+        retention_in_mb   = 100
+      }
+    }
     application_logs {
       file_system_level = "Information" # In the F1 tier we have 1GB disk space available
     }
