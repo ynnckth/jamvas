@@ -64,3 +64,21 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
     DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages_password
   }
 }
+
+# Application Insights (monitoring)
+resource "azurerm_application_insights" "jamvas-app-insights" {
+  name                = "${local.prefix}-app-insights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "other"
+  retention_in_days = 30
+  daily_data_cap_in_gb = 0.05 # 50MB
+}
+
+output "app_insights_instrumentation_key" {
+  value = azurerm_application_insights.jamvas-app-insights.instrumentation_key
+}
+
+output "app_insights_app_id" {
+  value = azurerm_application_insights.jamvas-app-insights.app_id
+}
