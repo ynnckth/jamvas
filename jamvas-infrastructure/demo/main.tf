@@ -66,7 +66,25 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
   }
 }
 
+# App service's diagnostic setting to ship application logs from file system to log analytics workspace
+resource "azurerm_monitor_diagnostic_setting" "jamvas-application-logs-setting" {
+  name               = "${local.prefix}-application-logs-setting"
+  target_resource_id = azurerm_linux_web_app.jamvas-backend.id
+
+  enabled_log {
+    category = "AppServiceConsoleLogs"
+    retention_policy {
+      enabled = true
+      days    = 1
+    }
+  }
+
+  # Destination where the logs should be sent to
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
+}
+
 # Log analytics workspace
+# Pricing details: https://azure.microsoft.com/en-gb/pricing/details/monitor/
 resource "azurerm_log_analytics_workspace" "jamvas-log-analytics-workspace" {
   name                = "${local.prefix}-log-analytics-workspace"
   location            = azurerm_resource_group.rg.location
@@ -86,21 +104,4 @@ resource "azurerm_application_insights" "jamvas-app-insights" {
   workspace_id               = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
   internet_ingestion_enabled = false
   internet_query_enabled     = false
-}
-
-# App service's diagnostic setting to ship application logs from file system to log analytics workspace
-resource "azurerm_monitor_diagnostic_setting" "jamvas-application-logs-setting" {
-  name               = "${local.prefix}-application-logs-setting"
-  target_resource_id = azurerm_linux_web_app.jamvas-backend.id
-
-  enabled_log {
-    category = "AppServiceConsoleLogs"
-    retention_policy {
-      enabled = true
-      days    = 1
-    }
-  }
-
-  # Destination where the logs should be sent to
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
 }

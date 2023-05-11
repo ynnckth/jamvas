@@ -28,4 +28,4 @@ const bootstrap = async () => {
 
   await app.listen(3000);
 };
-bootstrap();
+bootstrap().catch((e) => console.log('Fatal: failed to startup server', e));
