@@ -18,6 +18,7 @@ import { Box } from "@chakra-ui/react";
 import { Track } from "../../types/track";
 import { GiHighKick, GiPointyHat, GiPunchBlast, GiSlap, GiTopHat } from "react-icons/gi";
 import { FaDrum } from "react-icons/fa";
+import { rampBpmTo } from "../../toneUtils";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,9 @@ export const Sequencer: React.FC = () => {
     socket.on(WebsocketEvent.CLIENT_SOCKET_CONNECTED, () => connectClient(self.id));
 
     onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
+      if (updatedConfig.bpm !== sequencerConfiguration?.bpm) {
+        rampBpmTo(updatedConfig.bpm);
+      }
       dispatch(setSequencerConfiguration(updatedConfig));
       console.log("Received config update event", updatedConfig);
     });

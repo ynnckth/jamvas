@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleThunk } from "../../app/handleThunk";
 import { InstrumentId } from "./instruments/InstrumentId";
-import { start, Transport } from "tone";
 import { MAX_BPM, MIN_BPM } from "./constants";
 import { fetchSequencerConfiguration, updateBpm, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
+import { initializeAudio, rampBpmTo } from "./toneUtils";
 
 export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
   "sequencerSlice/initializeTone",
   async (_, { rejectWithValue }) =>
     handleThunk(async () => {
-      await start();
+      await initializeAudio();
       console.log("Tone.js initialized");
     }, rejectWithValue)
 );
@@ -31,7 +31,7 @@ export const setBpm = createAsyncThunk<number, { newBpm: number }, { rejectValue
         throw new Error(`${newBpm} BPM is not within allowed boundaries`);
       }
       const updatedConfig = await updateBpm(newBpm);
-      Transport.bpm.rampTo(updatedConfig.bpm, 1);
+      rampBpmTo(updatedConfig.bpm);
       return updatedConfig.bpm;
     }, rejectWithValue)
 );

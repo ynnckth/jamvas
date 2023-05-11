@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
 import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../sequencerSelectors";
 import { setBpm } from "../../sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
-import { MAX_BPM, MIN_BPM } from "../../constants";
+import { DEFAULT_BPM, MAX_BPM, MIN_BPM } from "../../constants";
 import { debounce } from "lodash";
 import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/react";
 
@@ -38,9 +38,10 @@ export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequ
       <div className="play-stop-button" onClick={() => toggleStopped()} data-test-id="play-stop-button">
         {isSequencerStopped ? <FaPlay size={20} /> : <FaPause size={20} />}
       </div>
+      <Box marginRight="15px">{sequencerConfiguration?.bpm}</Box>
       <Box display="flex" alignItems="center" width="250px">
         <Slider
-          defaultValue={sequencerConfiguration?.bpm}
+          value={sequencerConfiguration?.bpm ?? DEFAULT_BPM}
           min={MIN_BPM}
           max={MAX_BPM}
           onChange={debounce(onUpdateBpm, 200)}
