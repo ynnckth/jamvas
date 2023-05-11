@@ -62,6 +62,7 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
     DOCKER_REGISTRY_SERVER_URL      = var.github_packages_server_url
     DOCKER_REGISTRY_SERVER_USERNAME = var.github_packages_username
     DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages_password
+    APPINSIGHTS_INSTRUMENTATIONKEY  = azurerm_application_insights.jamvas-app-insights.instrumentation_key
   }
 }
 
