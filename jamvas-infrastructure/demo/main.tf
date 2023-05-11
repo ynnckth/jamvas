@@ -70,8 +70,9 @@ resource "azurerm_log_analytics_workspace" "jamvas-log-analytics-workspace" {
   name                = "${local.prefix}-log-analytics-workspace"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  sku                 = "Free"
-  retention_in_days   = 7
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+  daily_quota_gb      = 0.1 # ~100MB per day ~3GB per month < 5GB free per month
 }
 
 resource "azurerm_application_insights" "jamvas-app-insights" {
@@ -80,7 +81,7 @@ resource "azurerm_application_insights" "jamvas-app-insights" {
   resource_group_name  = azurerm_resource_group.rg.name
   application_type     = "other"
   retention_in_days    = 30
-  daily_data_cap_in_gb = 0.05 # 50MB
+  daily_data_cap_in_gb = 0.1 # ~100MB
   workspace_id         = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
 }
 
