@@ -91,7 +91,7 @@ export const Sequencer: React.FC = () => {
           </div>
           <div className="grid">
             {instrument.tracks.map((track, trackIndex) => (
-              <div className="track" key={`track-${trackIndex}`}>
+              <div className="track" key={`track-${track.name}`}>
                 {instrument.instrumentId === InstrumentId.DRUMS ? (
                   <Box width="25px">{renderDrumTrackIcon(track)}</Box>
                 ) : (
@@ -100,7 +100,7 @@ export const Sequencer: React.FC = () => {
 
                 {track.steps.map((step, stepIndex) => (
                   <GridCell
-                    key={`step-${stepIndex}`}
+                    key={`track-${track.name}-step-${stepIndex}`}
                     isCurrentlyActiveStep={stepIndex === currentlyActiveStep}
                     isOn={step.isOn}
                     onClick={() => onGridCellClicked(instrument.instrumentId, trackIndex, stepIndex, !step.isOn)}
