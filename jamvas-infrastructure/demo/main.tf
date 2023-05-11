@@ -64,6 +64,12 @@ resource "azurerm_linux_web_app" "jamvas-backend" {
     DOCKER_REGISTRY_SERVER_PASSWORD = var.github_packages_password
     APPINSIGHTS_INSTRUMENTATIONKEY  = azurerm_application_insights.jamvas-app-insights.instrumentation_key
   }
+
+  logs {
+    application_logs {
+      file_system_level = "Information" # In the F1 tier we have 1GB disk space available
+    }
+  }
 }
 
 # Log analytics workspace
@@ -84,6 +90,7 @@ resource "azurerm_application_insights" "jamvas-app-insights" {
   retention_in_days    = 30
   daily_data_cap_in_gb = 0.1 # ~100MB
   workspace_id         = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
+  internet_ingestion_enabled = false
 }
 
 output "app_insights_instrumentation_key" {
