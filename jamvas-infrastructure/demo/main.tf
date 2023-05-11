@@ -99,11 +99,19 @@ resource "azurerm_application_insights" "jamvas-app-insights" {
   internet_ingestion_enabled = false
 }
 
-output "app_insights_instrumentation_key" {
-  value     = azurerm_application_insights.jamvas-app-insights.instrumentation_key
-  sensitive = true
-}
+# App service's diagnostic setting to ship application logs from file system to log analytics workspace
+resource "azurerm_monitor_diagnostic_setting" "jamvas-application-logs-setting" {
+  name               = "${local.prefix}-application-logs-setting"
+  target_resource_id = azurerm_linux_web_app.jamvas-backend.id
 
-output "app_insights_app_id" {
-  value = azurerm_application_insights.jamvas-app-insights.app_id
+  enabled_log {
+    category = "AppServiceConsoleLogs"
+    retention_policy {
+      enabled = true
+      days = 1
+    }
+  }
+
+  # Destination where the logs should be sent to
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.jamvas-log-analytics-workspace.id
 }

@@ -23,3 +23,8 @@ Find the infrastructure definitions for this project inside `demo/main.tf`.
       This will create a service principal with the contributor role for Terraform Cloud to provision resources.
    3. As described in the guide, define environment variables for the service principal details in Terraform Cloud to allow it to provision resources to Azure
 
+## Applying infrastructure changes
+* Make the required changes to the terraform configuration
+* Commit and push the changes
+* Terraform Cloud is configured to detect changes within the infrastructure directory and will automatically trigger a plan
+* If the plan looks good, confirm and apply the infrastructure changes
