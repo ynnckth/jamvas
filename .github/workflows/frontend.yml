@@ -1,0 +1,59 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "jamvas-frontend/**" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write    # permission to deploy frontend to Github Pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Determine and set build version and commit hash environment variables
+        run: |
+          echo "BUILD_VERSION=${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          cd jamvas-frontend
+          npm ci
+
+      - name: ⚒️ Build for demo environment
+        run: |
+          cd jamvas-frontend
+          VITE_BACKEND_BASE_URL=${{ vars.BACKEND_BASE_URL }}
+          VITE_BACKEND_API_BASE_URL=${{ vars.BACKEND_API_BASE_URL }}
+          VITE_BUILD_VERSION=${{ env.BUILD_VERSION }} 
+          VITE_COMMIT_HASH=${{ env.COMMIT_HASH }}
+          npm run build
+        env:
+          VITE_BACKEND_BASE_URL: ${{ vars.BACKEND_BASE_URL }}
+          VITE_BACKEND_API_BASE_URL: ${{ vars.BACKEND_API_BASE_URL }}
+          VITE_BUILD_VERSION: ${{ env.BUILD_VERSION }}
+          VITE_COMMIT_HASH: ${{ env.COMMIT_HASH }}
+
+      - name: Setup Github Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload built artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './jamvas-frontend/dist'
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
