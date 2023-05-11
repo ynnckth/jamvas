@@ -2,6 +2,7 @@
 *A musical sequencer canvas for multiplayer jamming*
 
 ![CI](https://github.com/ynnckth/jamvas/actions/workflows/main.yml/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ynnckth_jamvas&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ynnckth_jamvas)
 
 ## Local development setup
 Run the backend locally in dev mode:
