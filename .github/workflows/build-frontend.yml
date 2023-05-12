@@ -51,7 +51,7 @@ jobs:
           VITE_BACKEND_API_BASE_URL=${{ vars.BACKEND_API_BASE_URL }}
           VITE_BUILD_VERSION=${{ env.BUILD_VERSION }} 
           VITE_COMMIT_HASH=${{ env.COMMIT_HASH }}
-          VITE_BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          VITE_BRANCH_NAME=${{ env.BRANCH_NAME }}
           npm run build
         env:
           VITE_BACKEND_BASE_URL: ${{ vars.BACKEND_BASE_URL }}
