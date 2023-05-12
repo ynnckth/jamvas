@@ -28,7 +28,7 @@ jobs:
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          run_id: context.payload.workflow_run.id
+          run_id: ${{ context.payload.workflow_run.id }}
 
       - name: 📦 Upload build artifact
         uses: actions/upload-pages-artifact@v1
