@@ -40,7 +40,7 @@ jobs:
         uses: falnyr/replace-env-vars-action@master
         env:
           BUILD_VERSION: ${{ github.run_number }}.${{ github.run_attempt }}
-          COMMIT_HASH: $(git rev-parse --short "$GITHUB_SHA")
+          COMMIT_HASH: ${{ git rev-parse --short "$GITHUB_SHA" }}
         with:
           filename: ./jamvas-backend/src/appVersion.ts
 
