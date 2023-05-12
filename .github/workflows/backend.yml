@@ -2,11 +2,15 @@ name: Backend CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-    paths: [ "jamvas-backend/**" ]
+    branches:
+      - "main"
+    paths:
+      - "jamvas-backend/**"
   pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - "main"
+    paths:
+      - "jamvas-backend/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
