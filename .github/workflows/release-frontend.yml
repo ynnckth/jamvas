@@ -6,9 +6,8 @@ on:
   workflow_run:
     workflows:
       - "Build Frontend"
-# TODO: Enable again, only for testing
-#    branches:
-#      - "main"
+    branches:
+      - "main"
     types:
       - "completed"
 
