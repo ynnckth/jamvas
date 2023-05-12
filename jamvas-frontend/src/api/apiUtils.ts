@@ -1,3 +1,5 @@
+import { ApiException } from "./apiException";
+
 export type RequestMethod = "GET" | "POST" | "PUT";
 
 const sendRequest = async <T>(url: string, method: RequestMethod, data?: any): Promise<T> => {
@@ -8,11 +10,14 @@ const sendRequest = async <T>(url: string, method: RequestMethod, data?: any): P
     },
     body: JSON.stringify(data),
   });
+
+  const responseBody = await response.json();
   if (!response.ok) {
-    // TODO: use response error instead
-    throw new Error("Api call failed");
+    const error = responseBody as ApiException;
+    console.error("The server responded with error: ", error.message);
+    throw new Error(error.message);
   }
-  return await response.json();
+  return responseBody;
 };
 
 export const get = <T>(url: string): Promise<T> => sendRequest<T>(url, "GET");
