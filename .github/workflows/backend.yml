@@ -36,11 +36,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Determine and set build version and commit hash environment variables
+        run: |
+          echo "BUILD_VERSION=${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+
       - name: Set application version
         uses: falnyr/replace-env-vars-action@master
         env:
-          BUILD_VERSION: ${{ github.run_number }}.${{ github.run_attempt }}
-          COMMIT_HASH: ${{ $(git rev-parse --short "$GITHUB_SHA") }}
+          BUILD_VERSION: ${{ env.BUILD_VERSION }}
+          COMMIT_HASH: ${{ env.COMMIT_HASH }}
         with:
           filename: ./jamvas-backend/src/appVersion.ts
 
