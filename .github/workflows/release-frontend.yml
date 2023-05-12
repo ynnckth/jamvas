@@ -6,10 +6,9 @@ on:
   workflow_run:
     workflows:
       - "Build Frontend"
-    branches:
-      - "main"
-      # TODO: remove, only for testing
-      - "feature/frontend-pipelines"
+# TODO: Enable again, only for testing
+#    branches:
+#      - "main"
     types:
       - "completed"
 
