@@ -3,7 +3,8 @@
 
 ![CI](https://github.com/ynnckth/jamvas/actions/workflows/build-backend.yml/badge.svg)
 ![CI](https://github.com/ynnckth/jamvas/actions/workflows/release-backend.yml/badge.svg)
-![CI](https://github.com/ynnckth/jamvas/actions/workflows/frontend.yml/badge.svg)
+![CI](https://github.com/ynnckth/jamvas/actions/workflows/build-frontend.yml/badge.svg)
+![CI](https://github.com/ynnckth/jamvas/actions/workflows/release-frontend.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ynnckth_jamvas&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ynnckth_jamvas)
 
 ## Local development setup
