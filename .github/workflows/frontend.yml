@@ -2,10 +2,15 @@ name: Frontend CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-    paths: [ "jamvas-frontend/**" ]
+    branches:
+      - "main"
+    paths:
+     - "jamvas-frontend/**"
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - "main"
+    paths:
+      - "jamvas-frontend/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
