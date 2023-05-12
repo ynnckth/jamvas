@@ -6,6 +6,7 @@ on:
       - "main"
       - "feature/**"
       - "bugfix/**"
+      - "hotfix/**"
     paths:
       - "jamvas-backend/**"
       - ".github/workflows/build-backend.yml"
