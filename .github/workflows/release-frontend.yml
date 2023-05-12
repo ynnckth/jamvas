@@ -26,12 +26,11 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           run_id: ${{ github.event.workflow_run.id }}
-          path: './temp'
 
       - name: 📦 Upload build artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './temp/github-pages'
+          path: './frontend-dist'
 
       - name: Setup Github Pages
         uses: actions/configure-pages@v3

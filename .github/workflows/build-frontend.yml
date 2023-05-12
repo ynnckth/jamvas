@@ -61,6 +61,7 @@ jobs:
           VITE_BRANCH_NAME: ${{ env.BRANCH_NAME }}
 
       - name: 📦 Upload built artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
+          name: 'frontend-dist'
           path: './jamvas-frontend/dist'
