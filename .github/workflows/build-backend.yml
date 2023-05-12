@@ -43,12 +43,14 @@ jobs:
         run: |
           echo "BUILD_VERSION=${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
           echo "COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
 
-      - name: Set application version
+      - name: Set application version information
         uses: falnyr/replace-env-vars-action@master
         env:
           BUILD_VERSION: ${{ env.BUILD_VERSION }}
           COMMIT_HASH: ${{ env.COMMIT_HASH }}
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
         with:
           filename: ./jamvas-backend/src/appVersion.ts
 
