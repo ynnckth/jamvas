@@ -1,18 +1,21 @@
-name: Frontend CI/CD
+name: Build Frontend
 
 on:
   push:
     branches:
       - "main"
+      - "feature/**"
+      - "bugfix/**"
+      - "hotfix/**"
     paths:
      - "jamvas-frontend/**"
-     - ".github/workflows/frontend.yml"
+     - ".github/workflows/build-frontend.yml"
   pull_request:
     branches:
       - "main"
     paths:
       - "jamvas-frontend/**"
-      - ".github/workflows/frontend.yml"
+      - ".github/workflows/build-frontend.yml"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,10 +23,9 @@ on:
 permissions:
   contents: read
   id-token: write
-  pages: write    # permission to deploy frontend to Github Pages
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -53,14 +55,7 @@ jobs:
           VITE_BUILD_VERSION: ${{ env.BUILD_VERSION }}
           VITE_COMMIT_HASH: ${{ env.COMMIT_HASH }}
 
-      - name: Setup Github Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload built artifact
+      - name: 📦 Upload built artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: './jamvas-frontend/dist'
-
-      - name: 🚀 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
