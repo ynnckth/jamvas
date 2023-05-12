@@ -1,0 +1,51 @@
+name: Release Frontend
+
+on:
+  # Trigger after the "Build Frontend" workflow is completed on the main branch
+  # Conclusion of build workflow completion is checked on job level
+  workflow_run:
+    workflows:
+      - "Build Frontend"
+    branches:
+      - "main"
+      # TODO: remove, only for testing
+      - "feature/frontend-pipelines"
+    types:
+      - "completed"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write    # permission to deploy frontend to Github Pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: 📦 Download build artifact from build workflow
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          run_id: context.payload.workflow_run.id
+
+      - name: 📦 Upload build artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './github-pages'
+
+      - name: Setup Github Pages
+        uses: actions/configure-pages@v3
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+  skip:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'Skipping release due to failed build'
