@@ -8,10 +8,11 @@ import { SequencerService } from './sequencer/sequencer.service';
 import { SequencerRepository } from './sequencer/sequencer.repository';
 import { SessionRepository } from './session/session.repository';
 import { SessionService } from './session/session.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [],
-  controllers: [UsersController, SequencerController],
+  controllers: [AppController, UsersController, SequencerController],
   providers: [
     UsersService,
     UsersRepository,

@@ -34,6 +34,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set application version
+        uses: falnyr/replace-env-vars-action@master
+        env:
+          BUILD_VERSION: 42.1
+          COMMIT_HASH: nanoya
+        with:
+          filename: ./jamvas-backend/src/appVersion.ts
+
       # TODO: Image versioning instead of overriding latest
       - name: ⚒️ Build and push Docker image
         uses: docker/build-push-action@v2
