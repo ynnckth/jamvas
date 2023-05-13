@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode dev",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "VITE_BACKEND_BASE_URL=\"http://jamvas.com\" VITE_BACKEND_API_BASE_URL=\"http://jamvas.com/api\" vitest"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",

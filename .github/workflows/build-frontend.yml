@@ -41,7 +41,7 @@ jobs:
       - name: "Run tests"
         run: |
           cd jamvas-frontend
-          npm test
+          npm run test:ci
 
   build:
     runs-on: ubuntu-latest
