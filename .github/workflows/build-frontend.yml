@@ -33,12 +33,12 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v2
 
-      - name: "Install dependencies"
+      - name: "⚙️ Install dependencies"
         run: |
           cd jamvas-frontend
           npm ci 
 
-      - name: "Run tests"
+      - name: "🔬 Run tests"
         run: |
           cd jamvas-frontend
           npm run test:ci
@@ -57,7 +57,7 @@ jobs:
           echo "COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
 
-      - name: "Install dependencies"
+      - name: "⚙️ Install dependencies"
         run: |
           cd jamvas-frontend
           npm ci
@@ -78,7 +78,7 @@ jobs:
           VITE_COMMIT_HASH: ${{ env.COMMIT_HASH }}
           VITE_BRANCH_NAME: ${{ env.BRANCH_NAME }}
 
-      - name: "📦 Upload built artifact"
+      - name: "⬆️📦 Upload built artifact"
         uses: actions/upload-artifact@v3
         with:
           name: "frontend-dist"
