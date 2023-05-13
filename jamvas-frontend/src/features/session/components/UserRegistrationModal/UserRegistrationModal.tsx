@@ -19,6 +19,7 @@ import { useAppDispatch } from "../../../../app/reduxHooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getAllUsers, registerUser } from "../../sessionThunks";
+import { testId } from "../../../../testing/testId";
 
 const UserRegistrationModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +32,12 @@ const UserRegistrationModal: React.FC = () => {
       username: Yup.string().max(15, "Must be 15 characters or less").required("Required"),
     }),
     onSubmit: async (values) => {
-      await dispatch(registerUser({ name: values.username }));
+      try {
+        await dispatch(registerUser({ name: values.username })).unwrap();
+      } catch (e) {
+        onClose();
+        return;
+      }
       await Promise.all([dispatch(getAllUsers()), dispatch(getSequencerConfiguration()), dispatch(initializeTone())]);
       onClose();
     },
@@ -39,12 +45,14 @@ const UserRegistrationModal: React.FC = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Join session</Button>
+      <Button onClick={onOpen} data-testid={testId.joinSessionButton}>
+        Join session
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <form onSubmit={userRegistrationForm.handleSubmit}>
+          <form onSubmit={userRegistrationForm.handleSubmit} data-testid={testId.userRegistrationModalContainer}>
             <ModalHeader>Join the Session</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -55,12 +63,15 @@ const UserRegistrationModal: React.FC = () => {
                   name="username"
                   defaultValue={userRegistrationForm.initialValues.username}
                   onChange={userRegistrationForm.handleChange}
+                  data-testid={testId.usernameInputField}
                 />
                 <FormErrorMessage>{userRegistrationForm.errors.username}</FormErrorMessage>
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button type={"submit"}>Join</Button>
+              <Button type={"submit"} data-testid={testId.confirmJoinButton}>
+                Join
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>

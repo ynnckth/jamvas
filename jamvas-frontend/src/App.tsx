@@ -5,6 +5,7 @@ import { useAppSelector } from "./app/reduxHooks";
 import { selectIsToneInitialized } from "./features/sequencer/sequencerSelectors";
 import UserRegistrationModal from "./features/session/components/UserRegistrationModal/UserRegistrationModal";
 import { selectUser } from "./features/session/sessionSelectors";
+import { testId } from "./testing/testId";
 
 const App: React.FC = () => {
   const user = useAppSelector(selectUser);
@@ -22,7 +23,7 @@ const App: React.FC = () => {
     <div className="App">
       {!user && (
         <>
-          <h1>Jamvas</h1>
+          <h1 data-testid={testId.appTitle}>Jamvas</h1>
           <UserRegistrationModal />
         </>
       )}
