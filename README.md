@@ -7,7 +7,7 @@
 ![CI](https://github.com/ynnckth/jamvas/actions/workflows/release-frontend.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ynnckth_jamvas&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ynnckth_jamvas)
 
-<img src="docs/assets/screenshot.gif" width="100%" style="max-width: 500px"/>
+<img src="docs/assets/screenshot.gif" width="450px" />
 
 ## Local development setup
 Run the backend locally in dev mode:
