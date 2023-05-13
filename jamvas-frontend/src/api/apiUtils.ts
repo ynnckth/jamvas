@@ -1,6 +1,7 @@
 import { ApiException } from "./apiException";
 
 export type RequestMethod = "GET" | "POST" | "PUT";
+export const serverBaseUrl = `${import.meta.env.VITE_BACKEND_BASE_URL}`;
 
 const sendRequest = async <T>(url: string, method: RequestMethod, data?: any): Promise<T> => {
   const response = await fetch(url, {

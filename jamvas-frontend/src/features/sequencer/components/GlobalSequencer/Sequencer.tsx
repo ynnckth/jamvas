@@ -19,6 +19,7 @@ import { Track } from "../../types/track";
 import { GiHighKick, GiPointyHat, GiPunchBlast, GiSlap, GiTopHat } from "react-icons/gi";
 import { FaDrum } from "react-icons/fa";
 import { rampBpmTo } from "../../toneUtils";
+import { testId } from "../../../../testing/testId";
 
 export const Sequencer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -79,9 +80,11 @@ export const Sequencer: React.FC = () => {
   };
 
   return (
-    <div className="step-sequencer">
+    <div className="step-sequencer" data-testid={testId.sequencerContainer}>
       <Box>Playing in this session</Box>
-      <Box color="var(--purple)">{usersInSession.map((u) => u.name).join(", ")}</Box>
+      <Box color="var(--purple)" data-testid={testId.usersInSessionContainer}>
+        {usersInSession.map((u) => u.name).join(", ")}
+      </Box>
       <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
       {sequencerConfiguration.sequencerInstrumentStates.map((instrument) => (
