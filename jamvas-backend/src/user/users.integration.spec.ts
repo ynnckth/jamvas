@@ -1,12 +1,12 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { AppModule } from '../app.module';
 import { Test } from '@nestjs/testing';
-import { GlobalExceptionFilter } from './exception/global-exception.filter';
+import { GlobalExceptionFilter } from '../exception/global-exception.filter';
 import * as request from 'supertest';
-import { UsersRepository } from './user/users.repository';
+import { UsersRepository } from './users.repository';
 import Mocked = jest.Mocked;
 
-describe('Integration tests', () => {
+describe('Users integration tests', () => {
   let app: INestApplication;
   let usersRepositoryMock: Mocked<UsersRepository>;
 
