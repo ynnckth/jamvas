@@ -26,26 +26,44 @@ permissions:
   packages: write # permission to push images to Github Packages container registry
 
 jobs:
-  build-and-push:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: "Checkout repository"
         uses: actions/checkout@v2
 
-      - name: Login to GitHub Packages container registry
+      - name: "⚙️ Install dependencies"
+        run: |
+          cd jamvas-backend
+          npm ci
+
+      - name: "🔬 Run tests"
+        run: |
+          cd jamvas-backend
+          npm test
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs:
+      - "test"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "Login to GitHub Packages container registry"
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Determine and set build version and commit hash environment variables
+      - name: "Determine and set build version and commit hash environment variables"
         run: |
           echo "BUILD_VERSION=${{ github.run_number }}.${{ github.run_attempt }}" >> $GITHUB_ENV
           echo "COMMIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
 
-      - name: Set application version information
+      - name: "Set application version information"
         uses: falnyr/replace-env-vars-action@master
         env:
           BUILD_VERSION: ${{ env.BUILD_VERSION }}
@@ -55,7 +73,7 @@ jobs:
           filename: ./jamvas-backend/src/appVersion.ts
 
       # TODO: Version the published docker images (currently always overriding latest)
-      - name: ⚒️ Build and push Docker image
+      - name: "⚒️ Build and push Docker image"
         uses: docker/build-push-action@v2
         with:
           context: ./jamvas-backend
