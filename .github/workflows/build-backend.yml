@@ -37,10 +37,10 @@ jobs:
           cd jamvas-backend
           npm ci
 
-      - name: "🔬 Run tests"
+      - name: "🔬 Run tests with coverage"
         run: |
           cd jamvas-backend
-          npm test
+          npm run test:cov
 
   build-and-push:
     runs-on: ubuntu-latest
