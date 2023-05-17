@@ -1,8 +1,6 @@
 name: SonarCloud Scan
 
 on:
-  # Triggers as soon as both backend and frontend build pipelines have run
-  # This workflow should run after the build workflows in order to collect the generated test coverage reports
   workflow_run:
     workflows:
       - "Build Backend"
@@ -18,8 +16,38 @@ permissions:
   id-token: write
 
 jobs:
+  # TODO: instead of running tests with coverage again here, reuse coverage artifacts produced during build workflows
+  # Issue: this pipeline triggers either when the backend or frontend build pipeline completes, which means you will not always have both coverage reports
+  test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "⚙️ Install backend dependencies"
+        run: |
+          cd jamvas-backend
+          npm ci
+
+      - name: "🔬 Run backend tests with coverage"
+        run: |
+          cd jamvas-backend
+          npm run test:cov
+
+      - name: "⚙️ Install frontend dependencies"
+        run: |
+          cd jamvas-frontend
+          npm ci
+
+      - name: "🔬 Run frontend tests with coverage"
+        run: |
+          cd jamvas-frontend
+          npm run test:ci
+
   sonarcloud:
     runs-on: ubuntu-latest
+    needs:
+      - "test-coverage"
     steps:
       - uses: actions/checkout@v3
         with:
