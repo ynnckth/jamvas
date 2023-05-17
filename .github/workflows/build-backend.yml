@@ -10,12 +10,16 @@ on:
     paths:
       - "jamvas-backend/**"
       - ".github/workflows/build-backend.yml"
+      - ".github/workflows/release-backend.yml"
+      - ".github/workflows/sonar-scan.yml"
   pull_request:
     branches:
       - "main"
     paths:
       - "jamvas-backend/**"
       - ".github/workflows/build-backend.yml"
+      - ".github/workflows/release-backend.yml"
+      - ".github/workflows/sonar-scan.yml"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
