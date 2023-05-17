@@ -18,7 +18,7 @@ permissions:
 jobs:
   # TODO: instead of running tests with coverage again here, reuse coverage artifacts produced during build workflows
   # Issue: this pipeline triggers either when the backend or frontend build pipeline completes, which means you will not always have both coverage reports
-  test-coverage:
+  sonarcloud:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
@@ -44,11 +44,6 @@ jobs:
           cd jamvas-frontend
           npm run test:ci
 
-  sonarcloud:
-    runs-on: ubuntu-latest
-    needs:
-      - "test-coverage"
-    steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
