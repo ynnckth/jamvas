@@ -6,17 +6,16 @@ import { selectIsToneInitialized } from "./features/sequencer/sequencerSelectors
 import UserRegistrationModal from "./features/session/components/UserRegistrationModal/UserRegistrationModal";
 import { selectUser } from "./features/session/sessionSelectors";
 import { testId } from "./testing/testId";
+import { printAppVersionInformationOnConsole } from "./app/printAppVersionInformationOnConsole";
 
 const App: React.FC = () => {
   const user = useAppSelector(selectUser);
   const isToneInitialized = useAppSelector(selectIsToneInitialized);
 
   useEffect(() => {
-    console.group("App version");
-    console.log("Build version: ", import.meta.env.VITE_BUILD_VERSION);
-    console.log("Commit hash: ", import.meta.env.VITE_COMMIT_HASH);
-    console.log("Branch name: ", import.meta.env.VITE_BRANCH_NAME);
-    console.groupEnd();
+    if (!import.meta.env.DEV) {
+      printAppVersionInformationOnConsole();
+    }
   }, []);
 
   return (
