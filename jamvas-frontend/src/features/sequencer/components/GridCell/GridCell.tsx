@@ -4,7 +4,7 @@ import "./GridCell.css";
 interface Props {
   isCurrentlyActiveStep: boolean;
   isOn: boolean;
-  onClick: () => void;
+  onClick: () => Promise<void>;
   fillColor: string;
 }
 

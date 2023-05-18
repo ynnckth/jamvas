@@ -58,17 +58,17 @@ const useSequence = () => {
     });
   };
 
-  const startSequence = () => {
+  const startSequence = async () => {
     Transport.start();
     sequence?.start();
-    dispatch(startSequencer());
+    await dispatch(startSequencer());
     console.log("Sequence started");
   };
 
-  const stopSequence = () => {
+  const stopSequence = async () => {
     Transport.stop();
     sequence?.stop();
-    dispatch(stopSequencer());
+    await dispatch(stopSequencer());
     console.log("Sequence stopped");
   };
 

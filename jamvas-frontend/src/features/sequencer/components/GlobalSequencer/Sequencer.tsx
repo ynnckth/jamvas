@@ -55,7 +55,7 @@ export const Sequencer: React.FC = () => {
     stepIndex: number,
     newValue: boolean
   ) => {
-    dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }));
+    await dispatch(setInstrumentGridValue({ instrument, trackIndex, stepIndex, newValue }));
   };
 
   if (!sequencerConfiguration) {

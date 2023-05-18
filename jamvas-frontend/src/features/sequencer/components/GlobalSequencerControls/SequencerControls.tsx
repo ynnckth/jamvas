@@ -9,8 +9,8 @@ import { debounce } from "lodash";
 import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/react";
 
 interface Props {
-  onStartSequence: () => void;
-  onStopSequence: () => void;
+  onStartSequence: () => Promise<void>;
+  onStopSequence: () => Promise<void>;
 }
 
 export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequence }) => {
@@ -18,15 +18,15 @@ export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequ
   const isSequencerStopped = useAppSelector(selectIsSequencerStopped);
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
 
-  const onKeyPressed = (event: KeyboardEvent) => {
+  const onKeyPressed = async (event: KeyboardEvent) => {
     if (event.code === "Space") {
-      toggleStopped();
+      await toggleStopped();
     }
   };
 
   const onUpdateBpm = (newBpm: number) => dispatch(setBpm({ newBpm: newBpm }));
 
-  const toggleStopped = () => (isSequencerStopped ? onStartSequence() : onStopSequence());
+  const toggleStopped = async () => (isSequencerStopped ? await onStartSequence() : await onStopSequence());
 
   useEffect(() => {
     document.addEventListener("keypress", onKeyPressed);
