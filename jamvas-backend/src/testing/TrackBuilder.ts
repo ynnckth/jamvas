@@ -4,12 +4,12 @@ export class TrackBuilder {
   private name: string;
   private steps: Step[] = [];
 
-  withName(name: string): TrackBuilder {
+  withName(name: string): this {
     this.name = name;
     return this;
   }
 
-  withSteps(steps: Step[]): TrackBuilder {
+  withSteps(steps: Step[]): this {
     this.steps = steps;
     return this;
   }

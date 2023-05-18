@@ -7,17 +7,17 @@ export class SequencerInstrumentStateBuilder {
   private displayName: string;
   private tracks: TrackBuilder[] = [];
 
-  withInstrumentId(instrumentId: InstrumentId): SequencerInstrumentStateBuilder {
+  withInstrumentId(instrumentId: InstrumentId): this {
     this.instrumentId = instrumentId;
     return this;
   }
 
-  withDisplayName(displayName: string): SequencerInstrumentStateBuilder {
+  withDisplayName(displayName: string): this {
     this.displayName = displayName;
     return this;
   }
 
-  withTrack(builderFunction: (builder: TrackBuilder) => void = (e) => e): SequencerInstrumentStateBuilder {
+  withTrack(builderFunction: (builder: TrackBuilder) => void = (e) => e): this {
     const newBuilder = new TrackBuilder();
     builderFunction(newBuilder);
     this.tracks.push(newBuilder);

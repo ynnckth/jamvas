@@ -5,14 +5,12 @@ export class SequencerConfigurationBuilder {
   private bpm: number;
   private instrumentStates: SequencerInstrumentStateBuilder[] = [];
 
-  withBpm(bpm: number): SequencerConfigurationBuilder {
+  withBpm(bpm: number): this {
     this.bpm = bpm;
     return this;
   }
 
-  withInstrument(
-    builderFunction: (builder: SequencerInstrumentStateBuilder) => void = (e) => e,
-  ): SequencerConfigurationBuilder {
+  withInstrument(builderFunction: (builder: SequencerInstrumentStateBuilder) => void = (e) => e): this {
     const newBuilder = new SequencerInstrumentStateBuilder();
     builderFunction(newBuilder);
     this.instrumentStates.push(newBuilder);

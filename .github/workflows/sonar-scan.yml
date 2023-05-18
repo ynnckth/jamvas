@@ -16,8 +16,6 @@ permissions:
   id-token: write
 
 jobs:
-  # TODO: instead of running tests with coverage again here, reuse coverage artifacts produced during build workflows
-  # Issue: this pipeline triggers either when the backend or frontend build pipeline completes, which means you will not always have both coverage reports
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
