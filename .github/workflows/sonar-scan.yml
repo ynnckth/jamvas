@@ -22,7 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: "⚙️ Install backend dependencies"
         run: |
@@ -43,6 +45,16 @@ jobs:
         run: |
           cd jamvas-frontend
           npm run test:ci
+
+      # TODO: Remove again. Only for debugging
+      - name: "Show coverage reports"
+        run: |
+          ls -l jamvas-backend/coverage
+          cat jamvas-backend/coverage/lcov.info
+          cat jamvas-backend/test-report.xml
+          ls -l jamvas-frontend/coverage
+          cat jamvas-frontend/coverage/lcov.info
+          cat jamvas-frontend/test-report.xml
 
       - name: "🔎 SonarCloud Scan"
         uses: SonarSource/sonarcloud-github-action@master
