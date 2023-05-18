@@ -46,16 +46,6 @@ jobs:
           cd jamvas-frontend
           npm run test:ci
 
-      # TODO: Remove again. Only for debugging
-      - name: "Show coverage reports"
-        run: |
-          ls -l jamvas-backend/coverage
-          cat jamvas-backend/coverage/lcov.info
-          cat jamvas-backend/test-report.xml
-          ls -l jamvas-frontend/coverage
-          cat jamvas-frontend/coverage/lcov.info
-          cat jamvas-frontend/test-report.xml
-
       - name: "🔎 SonarCloud Scan"
         uses: SonarSource/sonarcloud-github-action@master
         env:
