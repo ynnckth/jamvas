@@ -2,7 +2,7 @@ import { PreloadedState } from "@reduxjs/toolkit";
 import { render, RenderOptions } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
-import { AppStore, RootState, setupStore } from "../app/store";
+import { AppStore, RootState, setupStore } from "../store/store";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../theme";
 import { Toaster } from "react-hot-toast";

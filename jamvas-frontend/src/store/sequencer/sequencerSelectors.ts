@@ -1,4 +1,4 @@
-import { RootState } from "../../app/store";
+import { RootState } from "../store";
 
 export const selectSequencerConfiguration = (state: RootState) => state.sequencerSlice.sequencerConfiguration;
 export const selectCurrentStep = (state: RootState) => state.sequencerSlice.currentlyActiveStep;

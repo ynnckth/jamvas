@@ -1,4 +1,4 @@
-import { InstrumentId } from "../instruments/InstrumentId";
+import { InstrumentId } from "../app/instruments/InstrumentId";
 
 export interface SequencerConfiguration {
   bpm: number;

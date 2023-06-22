@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { handleThunk } from "../../app/handleThunk";
+import { handleThunk } from "../handleThunk";
 import { fetchUsers, sendRegisterUser } from "../../api/sessionApi";
 import { User } from "../../types/User";
 

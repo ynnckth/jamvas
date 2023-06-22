@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Sequence, Transport } from "tone";
-import { TOTAL_NO_STEPS } from "./constants";
-import { useAppDispatch, useAppSelector } from "../../app/reduxHooks";
-import { setCurrentlyActiveStep } from "./sequencerSlice";
+import { TOTAL_NO_STEPS } from "../app/SequencerConstants";
+import { useAppDispatch, useAppSelector } from "../store/reduxHooks";
+import { setCurrentlyActiveStep } from "../store/sequencer/sequencerSlice";
 import { Seconds } from "tone/build/esm/core/type/Units";
-import { startSequencer, stopSequencer } from "./sequencerThunks";
-import { selectSequencerConfiguration } from "./sequencerSelectors";
-import DrumSequencer from "./instruments/drums/drumSequencer";
-import { InstrumentId } from "./instruments/InstrumentId";
-import LeadSynthSequencer from "./instruments/lead/leadSynthSequencer";
+import { startSequencer, stopSequencer } from "../store/sequencer/sequencerThunks";
+import { selectSequencerConfiguration } from "../store/sequencer/sequencerSelectors";
+import DrumSequencer from "../app/instruments/drums/drumSequencer";
+import { InstrumentId } from "../app/instruments/InstrumentId";
+import LeadSynthSequencer from "../app/instruments/lead/leadSynthSequencer";
 
 const useSequence = () => {
   const dispatch = useAppDispatch();
