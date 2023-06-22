@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
-import { SequencerConfiguration } from "./types/SequencerConfiguration";
-import { WebsocketEvent } from "../../api/event";
-import { User } from "../../types/User";
+import { SequencerConfiguration } from "../types/SequencerConfiguration";
+import { WebsocketEvent } from "../api/event";
+import { User } from "../types/User";
 
 const SOCKET_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 

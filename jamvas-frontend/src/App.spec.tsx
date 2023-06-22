@@ -8,8 +8,8 @@ import { rest } from "msw";
 import { baseUrl as sessionApiBaseUrl } from "./api/sessionApi";
 import { baseUrl as sequencerApiBaseUrl } from "./api/sequencerApi";
 import { User } from "./types/User";
-import { SequencerConfiguration } from "./features/sequencer/types/SequencerConfiguration";
-import { DEFAULT_BPM } from "./features/sequencer/constants";
+import { SequencerConfiguration } from "./types/SequencerConfiguration";
+import { DEFAULT_BPM } from "./app/SequencerConstants";
 import { serverBaseUrl } from "./api/apiUtils";
 import { ApiException } from "./api/apiException";
 

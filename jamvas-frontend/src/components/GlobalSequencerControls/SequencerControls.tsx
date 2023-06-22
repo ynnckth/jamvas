@@ -1,10 +1,10 @@
 import "./GlobalSequencerControls.css";
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/reduxHooks";
-import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../sequencerSelectors";
-import { setBpm } from "../../sequencerThunks";
+import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
+import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../store/sequencer/sequencerSelectors";
+import { setBpm } from "../../store/sequencer/sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
-import { DEFAULT_BPM, MAX_BPM, MIN_BPM } from "../../constants";
+import { DEFAULT_BPM, MAX_BPM, MIN_BPM } from "../../app/SequencerConstants";
 import { debounce } from "lodash";
 import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/react";
 

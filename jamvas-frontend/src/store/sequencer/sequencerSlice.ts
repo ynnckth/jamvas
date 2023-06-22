@@ -7,7 +7,7 @@ import {
   startSequencer,
   stopSequencer,
 } from "./sequencerThunks";
-import { SequencerConfiguration } from "./types/SequencerConfiguration";
+import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 
 interface SequencerSliceState {
   isToneInitialized: boolean;

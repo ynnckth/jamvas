@@ -14,12 +14,12 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { getSequencerConfiguration, initializeTone } from "../../../sequencer/sequencerThunks";
-import { useAppDispatch } from "../../../../app/reduxHooks";
+import { getSequencerConfiguration, initializeTone } from "../../store/sequencer/sequencerThunks";
+import { useAppDispatch } from "../../store/reduxHooks";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getAllUsers, registerUser } from "../../sessionThunks";
-import { testId } from "../../../../testing/testId";
+import { getAllUsers, registerUser } from "../../store/session/sessionThunks";
+import { testId } from "../../testing/testId";
 
 const UserRegistrationModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
