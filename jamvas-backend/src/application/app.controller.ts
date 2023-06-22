@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { applicationVersion, AppVersion } from './appVersion';
+import { applicationVersion, AppVersion } from '../appVersion';
 
 @Controller()
 export class AppController {

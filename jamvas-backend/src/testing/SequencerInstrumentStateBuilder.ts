@@ -1,5 +1,5 @@
-import { InstrumentId } from '../sequencer/instrument-id';
-import { SequencerInstrumentState } from '../sequencer/sequencer-configuration';
+import { InstrumentId } from '../domain/instrument-id';
+import { SequencerInstrumentState } from '../domain/sequencer-configuration';
 import { TrackBuilder } from './TrackBuilder';
 
 export class SequencerInstrumentStateBuilder {

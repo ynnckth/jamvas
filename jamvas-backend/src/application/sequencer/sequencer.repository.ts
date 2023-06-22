@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { SequencerConfiguration, Step } from './sequencer-configuration';
-import { InstrumentId } from './instrument-id';
+import { SequencerConfiguration, Step } from '../../domain/sequencer-configuration';
+import { InstrumentId } from '../../domain/instrument-id';
 import { dorianScale, getScaleForOctave } from './lead/getScale';
 
 @Injectable()

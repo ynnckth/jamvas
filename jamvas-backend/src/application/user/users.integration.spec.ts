@@ -1,7 +1,7 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../app.module';
 import { Test } from '@nestjs/testing';
-import { GlobalExceptionFilter } from '../exception/global-exception.filter';
+import { GlobalExceptionFilter } from '../../infrastructure/global-exception.filter';
 import * as request from 'supertest';
 import { UsersRepository } from './users.repository';
 import Mocked = jest.Mocked;

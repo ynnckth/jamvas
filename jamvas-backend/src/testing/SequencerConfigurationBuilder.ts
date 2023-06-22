@@ -1,4 +1,4 @@
-import { SequencerConfiguration } from '../sequencer/sequencer-configuration';
+import { SequencerConfiguration } from '../domain/sequencer-configuration';
 import { SequencerInstrumentStateBuilder } from './SequencerInstrumentStateBuilder';
 
 export class SequencerConfigurationBuilder {

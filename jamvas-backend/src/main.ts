@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { GlobalExceptionFilter } from './exception/global-exception.filter';
+import { GlobalExceptionFilter } from './infrastructure/global-exception.filter';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);

@@ -8,9 +8,9 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { SequencerConfiguration } from '../sequencer/sequencer-configuration';
+import { SequencerConfiguration } from '../../domain/sequencer-configuration';
 import { Logger } from '@nestjs/common';
-import { SessionUser } from './SessionUser';
+import { SessionUser } from '../../domain/session-user';
 import { SessionService } from './session.service';
 
 @WebSocketGateway({ cors: true })

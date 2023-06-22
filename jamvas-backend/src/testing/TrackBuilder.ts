@@ -1,4 +1,4 @@
-import { Step, Track } from '../sequencer/sequencer-configuration';
+import { Step, Track } from '../domain/sequencer-configuration';
 
 export class TrackBuilder {
   private name: string;

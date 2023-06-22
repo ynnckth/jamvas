@@ -1,4 +1,4 @@
-import { InstrumentId } from '../instrument-id';
+import { InstrumentId } from '../../../domain/instrument-id';
 
 export interface UpdateInstrumentGridRequest {
   instrumentId: InstrumentId;

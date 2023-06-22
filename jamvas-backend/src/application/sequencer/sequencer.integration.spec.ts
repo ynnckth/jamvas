@@ -1,12 +1,12 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../app.module';
 import { Test } from '@nestjs/testing';
-import { GlobalExceptionFilter } from '../exception/global-exception.filter';
+import { GlobalExceptionFilter } from '../../infrastructure/global-exception.filter';
 import * as request from 'supertest';
 import { SequencerRepository } from './sequencer.repository';
-import { SequencerConfigurationBuilder } from '../testing/SequencerConfigurationBuilder';
-import { InstrumentId } from './instrument-id';
-import { SequencerConfiguration, Step } from './sequencer-configuration';
+import { SequencerConfigurationBuilder } from '../../testing/SequencerConfigurationBuilder';
+import { InstrumentId } from '../../domain/instrument-id';
+import { SequencerConfiguration, Step } from '../../domain/sequencer-configuration';
 import Mocked = jest.Mocked;
 
 describe('Sequencer integration tests', () => {
