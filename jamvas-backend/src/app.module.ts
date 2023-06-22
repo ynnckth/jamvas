@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './user/users.controller';
-import { UsersService } from './user/users.service';
-import { UsersRepository } from './user/users.repository';
-import { SessionGateway } from './session/sessionGateway';
-import { SequencerController } from './sequencer/sequencer.controller';
-import { SequencerService } from './sequencer/sequencer.service';
-import { SequencerRepository } from './sequencer/sequencer.repository';
-import { SessionRepository } from './session/session.repository';
-import { SessionService } from './session/session.service';
-import { AppController } from './app.controller';
+import { UsersController } from './application/user/users.controller';
+import { UsersService } from './application/user/users.service';
+import { UsersRepository } from './application/user/users.repository';
+import { SessionGateway } from './application/session/sessionGateway';
+import { SequencerController } from './application/sequencer/sequencer.controller';
+import { SequencerService } from './application/sequencer/sequencer.service';
+import { SequencerRepository } from './application/sequencer/sequencer.repository';
+import { SessionRepository } from './application/session/session.repository';
+import { SessionService } from './application/session/session.service';
+import { AppController } from './application/app.controller';
 
 @Module({
   imports: [],

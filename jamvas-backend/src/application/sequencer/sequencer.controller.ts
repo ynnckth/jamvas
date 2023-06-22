@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Logger, Put } from '@nestjs/common';
 import { SequencerService } from './sequencer.service';
-import { SequencerConfiguration } from './sequencer-configuration';
+import { SequencerConfiguration } from '../../domain/sequencer-configuration';
 import { UpdateInstrumentGridRequest } from './dto/update-instrument-grid.request';
 
 @Controller('sequencer')

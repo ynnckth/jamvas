@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SequencerRepository } from './sequencer.repository';
-import { SequencerConfiguration } from './sequencer-configuration';
-import { InstrumentId } from './instrument-id';
+import { SequencerConfiguration } from '../../domain/sequencer-configuration';
+import { InstrumentId } from '../../domain/instrument-id';
 import { SessionGateway } from '../session/sessionGateway';
 
 @Injectable()

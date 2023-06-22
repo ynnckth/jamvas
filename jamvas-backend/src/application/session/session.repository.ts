@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SessionUser } from './SessionUser';
+import { SessionUser } from '../../domain/session-user';
 
 @Injectable()
 export class SessionRepository {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { IllegalArgumentException } from '../exception/IllegalArgumentException';
+import { IllegalArgumentException } from '../exceptions/IllegalArgumentException';
 import { SessionGateway } from '../session/sessionGateway';
 
 @Injectable()

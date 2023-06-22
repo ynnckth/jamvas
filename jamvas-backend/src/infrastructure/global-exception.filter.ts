@@ -1,11 +1,6 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpStatus,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { IllegalArgumentException } from './IllegalArgumentException';
+import { IllegalArgumentException } from '../application/exceptions/IllegalArgumentException';
 
 /**
  * Global-scoped filter that is used across the whole application, for every controller and every route handler.
