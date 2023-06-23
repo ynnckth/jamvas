@@ -15,4 +15,4 @@ WORKDIR /usr/src/app
 COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist /usr/src/app/dist
 EXPOSE 3000
-CMD ["dumb-init", "node", "dist/main.js"]
+CMD ["dumb-init", "node", "dist/src/main"]
