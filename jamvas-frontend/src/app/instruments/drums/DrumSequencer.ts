@@ -1,14 +1,12 @@
 import { Sampler } from "tone";
-import SequencerInstrument from "../SequencerInstrument";
-import { InstrumentId } from "../InstrumentId";
+import Playable from "../Playable";
 import { samples } from "./samples";
 import { Seconds } from "tone/build/esm/core/type/Units";
 
-class DrumSequencer extends SequencerInstrument {
+class DrumSequencer implements Playable {
   private sampler: Sampler;
 
-  constructor(id: InstrumentId) {
-    super(id);
+  constructor() {
     this.sampler = new Sampler({
       urls: {
         ...samples.reduce((samplesDict: any, sample) => ((samplesDict[sample.key] = sample.urlPath), samplesDict), {}),
