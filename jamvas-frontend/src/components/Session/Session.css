@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.sequencer-instrument {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .track {
     display: flex;
     justify-content: center;

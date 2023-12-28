@@ -81,10 +81,6 @@ export const Session: React.FC = () => {
 
   return (
     <div className="step-sequencer" data-testid={testId.sequencerContainer}>
-      <Box>Currently in this session</Box>
-      <Box color="var(--purple)" data-testid={testId.usersInSessionContainer}>
-        {usersInSession.map((u) => u.name).join(", ")}
-      </Box>
       <SequencerControls onStartSequence={startSequence} onStopSequence={stopSequence} />
 
       {sequencerConfiguration.sequencerInstrumentStates.map((instrument) => (
@@ -115,6 +111,11 @@ export const Session: React.FC = () => {
           </div>
         </div>
       ))}
+      <Box style={{ width: "100%", height: "45px" }} />
+      <Box>Currently in this session</Box>
+      <Box color="var(--purple)" data-testid={testId.usersInSessionContainer}>
+        {usersInSession.map((u) => u.name).join(", ")}
+      </Box>
     </div>
   );
 };
