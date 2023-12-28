@@ -7,14 +7,14 @@ import { Seconds } from "tone/build/esm/core/type/Units";
 import { startSequencer, stopSequencer } from "../store/sequencer/sequencerThunks";
 import { selectSequencerConfiguration } from "../store/sequencer/sequencerSelectors";
 import DrumSequencer from "../domain/instruments/drums/DrumSequencer";
-import LeadSynthSequencer from "../domain/instruments/lead/LeadSynthSequencer";
+import MelodicSynth from "../domain/instruments/lead/MelodicSynth";
 import { InstrumentId } from "../domain/instruments/InstrumentId";
 import { SequencerInstrumentState } from "../types/SequencerConfiguration";
 import Playable from "../domain/instruments/Playable";
 
 const sequence = new Sequence(() => {}, Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
 const drumSequencer = new DrumSequencer();
-const leadSequencer = new LeadSynthSequencer();
+const leadSequencer = new MelodicSynth();
 
 const useSequence = () => {
   const dispatch = useAppDispatch();

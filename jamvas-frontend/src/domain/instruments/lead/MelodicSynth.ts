@@ -1,7 +1,7 @@
 import { Filter, PolySynth, Reverb, Synth } from "tone";
 import Playable from "../Playable";
 
-class LeadSynthSequencer implements Playable {
+class MelodicSynth implements Playable {
   private readonly synthesizer: PolySynth;
   private readonly lowPassFilter: Filter;
 
@@ -29,4 +29,4 @@ class LeadSynthSequencer implements Playable {
     this.synthesizer.triggerAttackRelease(note, "16n", scheduledTime);
   }
 }
-export default LeadSynthSequencer;
+export default MelodicSynth;
