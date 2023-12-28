@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleThunk } from "../handleThunk";
-import { InstrumentId } from "../../app/instruments/InstrumentId";
-import { MAX_BPM, MIN_BPM } from "../../app/SequencerConstants";
+import { InstrumentId } from "../../domain/instruments/InstrumentId";
+import { MAX_BPM, MIN_BPM } from "../../domain/SequencerConstants";
 import { fetchSequencerConfiguration, updateBpm, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 import { initializeAudio, rampBpmTo } from "../../utils/audioUtils";

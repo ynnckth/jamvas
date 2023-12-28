@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../store/sequencer/sequencerSelectors";
 import { setBpm } from "../../store/sequencer/sequencerThunks";
 import { FaPause, FaPlay } from "react-icons/fa";
-import { DEFAULT_BPM, MAX_BPM, MIN_BPM } from "../../app/SequencerConstants";
+import { DEFAULT_BPM, MAX_BPM, MIN_BPM } from "../../domain/SequencerConstants";
 import { debounce } from "lodash";
 import { Box, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from "@chakra-ui/react";
 

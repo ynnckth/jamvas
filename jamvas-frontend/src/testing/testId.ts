@@ -1,6 +1,6 @@
 export const testId = {
   // Landing page
-  appTitle: "app-title",
+  appTitle: "domain-title",
   joinSessionButton: "join-session-button",
 
   // User registration modal

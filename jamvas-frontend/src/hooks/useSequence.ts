@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { Sequence, Transport } from "tone";
-import { TOTAL_NO_STEPS } from "../app/SequencerConstants";
+import { TOTAL_NO_STEPS } from "../domain/SequencerConstants";
 import { useAppDispatch, useAppSelector } from "../store/reduxHooks";
 import { setCurrentlyActiveStep } from "../store/sequencer/sequencerSlice";
 import { Seconds } from "tone/build/esm/core/type/Units";
 import { startSequencer, stopSequencer } from "../store/sequencer/sequencerThunks";
 import { selectSequencerConfiguration } from "../store/sequencer/sequencerSelectors";
-import DrumSequencer from "../app/instruments/drums/DrumSequencer";
-import LeadSynthSequencer from "../app/instruments/lead/LeadSynthSequencer";
-import { InstrumentId } from "../app/instruments/InstrumentId";
+import DrumSequencer from "../domain/instruments/drums/DrumSequencer";
+import LeadSynthSequencer from "../domain/instruments/lead/LeadSynthSequencer";
+import { InstrumentId } from "../domain/instruments/InstrumentId";
 import { SequencerInstrumentState } from "../types/SequencerConfiguration";
-import Playable from "../app/instruments/Playable";
+import Playable from "../domain/instruments/Playable";
 
 const sequence = new Sequence(() => {}, Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
 const drumSequencer = new DrumSequencer();

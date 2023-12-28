@@ -9,7 +9,7 @@ import { baseUrl as sessionApiBaseUrl } from "./api/sessionApi";
 import { baseUrl as sequencerApiBaseUrl } from "./api/sequencerApi";
 import { User } from "./types/User";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
-import { DEFAULT_BPM } from "./app/SequencerConstants";
+import { DEFAULT_BPM } from "./domain/SequencerConstants";
 import { serverBaseUrl } from "./api/apiUtils";
 import { ApiException } from "./api/apiException";
 

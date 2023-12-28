@@ -1,5 +1,5 @@
 import { SequencerConfiguration } from "../types/SequencerConfiguration";
-import { InstrumentId } from "../app/instruments/InstrumentId";
+import { InstrumentId } from "../domain/instruments/InstrumentId";
 import { get, put } from "./apiUtils";
 
 export const baseUrl = `${import.meta.env.VITE_BACKEND_API_BASE_URL}/sequencer`;
