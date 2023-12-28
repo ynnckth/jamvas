@@ -61,6 +61,7 @@ const JoinSessionModal: React.FC = () => {
                   name="username"
                   defaultValue={userRegistrationForm.initialValues.username}
                   onChange={userRegistrationForm.handleChange}
+                  autoFocus={true}
                   data-testid={testId.usernameInputField}
                 />
                 <FormErrorMessage>{userRegistrationForm.errors.username}</FormErrorMessage>
