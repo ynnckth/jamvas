@@ -10,7 +10,7 @@
 <img src="docs/assets/screenshot.gif" width="450px" />
 
 ## Local development setup
-Run the backend locally in dev mode:
+Run the **backend** locally in dev mode:
 ```shell
 cd jamvas-backend
 npm install
@@ -19,7 +19,12 @@ npm run start:dev
 By default, the backend should be available at: 
 > http://localhost:3000/api
 
-Run the frontend locally in dev mode: 
+Create a `.env` file with the following content at the root of the frontend folder:
+```
+VITE_BACKEND_API_BASE_URL=http://localhost:3000/api
+```
+Run the **frontend** locally in dev mode:
+
 ```shell
 cd jamvas-frontend
 npm install
