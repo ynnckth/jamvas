@@ -4,7 +4,7 @@ import { InstrumentId } from "../../app/instruments/InstrumentId";
 import { MAX_BPM, MIN_BPM } from "../../app/SequencerConstants";
 import { fetchSequencerConfiguration, updateBpm, updateSequencerInstrumentGrid } from "../../api/sequencerApi";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
-import { initializeAudio, rampBpmTo } from "../../utils/toneUtils";
+import { initializeAudio, rampBpmTo } from "../../utils/audioUtils";
 
 export const initializeTone = createAsyncThunk<void, void, { rejectValue: string }>(
   "sequencerSlice/initializeTone",

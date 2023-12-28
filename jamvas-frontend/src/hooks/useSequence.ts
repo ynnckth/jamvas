@@ -6,9 +6,9 @@ import { setCurrentlyActiveStep } from "../store/sequencer/sequencerSlice";
 import { Seconds } from "tone/build/esm/core/type/Units";
 import { startSequencer, stopSequencer } from "../store/sequencer/sequencerThunks";
 import { selectSequencerConfiguration } from "../store/sequencer/sequencerSelectors";
-import DrumSequencer from "../app/instruments/drums/drumSequencer";
+import DrumSequencer from "../app/instruments/drums/DrumSequencer";
 import { InstrumentId } from "../app/instruments/InstrumentId";
-import LeadSynthSequencer from "../app/instruments/lead/leadSynthSequencer";
+import LeadSynthSequencer from "../app/instruments/lead/LeadSynthSequencer";
 
 const useSequence = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +29,7 @@ const useSequence = () => {
           playAllTracksAtCurrentStep(currentStep, time);
           dispatch(setCurrentlyActiveStep(currentStep));
         },
-        Array.from(Array(TOTAL_NO_STEPS).keys()),
-        "16n"
-      );
+        Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
       setSequence(newSequence);
     } else {
       sequence.callback = (time, currentStep) => {

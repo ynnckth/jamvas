@@ -3,12 +3,12 @@ import { User } from "../../types/User";
 import { getAllUsers, registerUser } from "./sessionThunks";
 
 interface SessionSliceState {
-  self?: User;
+  currentUser?: User;
   allUsersInSession: User[];
 }
 
 const initialState: SessionSliceState = {
-  self: undefined,
+  currentUser: undefined,
   allUsersInSession: [],
 };
 
@@ -22,7 +22,7 @@ export const sessionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.self = action.payload;
+      state.currentUser = action.payload;
     });
     builder.addCase(getAllUsers.fulfilled, (state, action) => {
       state.allUsersInSession = action.payload;

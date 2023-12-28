@@ -1,5 +1,5 @@
 import { Filter, PolySynth, Reverb, Synth } from "tone";
-import SequencerInstrument from "../sequencerInstrument";
+import SequencerInstrument from "../SequencerInstrument";
 import { InstrumentId } from "../InstrumentId";
 
 class LeadSynthSequencer extends SequencerInstrument {

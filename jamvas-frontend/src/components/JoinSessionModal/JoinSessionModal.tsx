@@ -21,7 +21,7 @@ import * as Yup from "yup";
 import { getAllUsers, registerUser } from "../../store/session/sessionThunks";
 import { testId } from "../../testing/testId";
 
-const UserRegistrationModal: React.FC = () => {
+const JoinSessionModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useAppDispatch();
   const userRegistrationForm = useFormik({
@@ -79,4 +79,4 @@ const UserRegistrationModal: React.FC = () => {
     </>
   );
 };
-export default UserRegistrationModal;
+export default JoinSessionModal;

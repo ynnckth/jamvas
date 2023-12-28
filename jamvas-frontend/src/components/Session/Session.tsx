@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import "./GlobalSequencer.css";
+import "./Session.css";
 import { GridCell } from "../GridCell/GridCell";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { selectCurrentStep, selectSequencerConfiguration } from "../../store/sequencer/sequencerSelectors";
 import { getInstrumentColor } from "../../app/instruments/getInstrumentColor";
-import { SequencerControls } from "../GlobalSequencerControls/SequencerControls";
+import { SequencerControls } from "../SequencerControls/SequencerControls";
 import { InstrumentId } from "../../app/instruments/InstrumentId";
 import { setInstrumentGridValue } from "../../store/sequencer/sequencerThunks";
 import useSequence from "../../hooks/useSequence";
@@ -18,22 +18,22 @@ import { Box } from "@chakra-ui/react";
 import { Track } from "../../types/Track";
 import { GiHighKick, GiPointyHat, GiPunchBlast, GiSlap, GiTopHat } from "react-icons/gi";
 import { FaDrum } from "react-icons/fa";
-import { rampBpmTo } from "../../utils/toneUtils";
+import { rampBpmTo } from "../../utils/audioUtils";
 import { testId } from "../../testing/testId";
 
-export const Sequencer: React.FC = () => {
+export const Session: React.FC = () => {
   const dispatch = useAppDispatch();
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
   const currentlyActiveStep: number = useAppSelector(selectCurrentStep);
-  const self = useAppSelector(selectUser);
+  const currentUser = useAppSelector(selectUser);
   const usersInSession = useAppSelector(selectAllUsersInSession);
   const { startSequence, stopSequence } = useSequence();
   const { socket, connectClient, onSequencerConfigurationUpdated, onUserJoinedSession } = useSequencerSocket();
 
   useEffect(() => {
-    if (!socket || !self) return;
+    if (!socket || !currentUser) return;
 
-    socket.on(WebsocketEvent.CLIENT_SOCKET_CONNECTED, () => connectClient(self.id));
+    socket.on(WebsocketEvent.CLIENT_SOCKET_CONNECTED, () => connectClient(currentUser.id));
 
     onSequencerConfigurationUpdated((updatedConfig: SequencerConfiguration) => {
       if (updatedConfig.bpm !== sequencerConfiguration?.bpm) {
@@ -47,7 +47,7 @@ export const Sequencer: React.FC = () => {
       dispatch(updateUsersInSession(updatedUsers));
       console.log("Received session users updated event", updatedUsers);
     });
-  }, [socket, self]);
+  }, [socket, currentUser]);
 
   const onGridCellClicked = async (
     instrument: InstrumentId,

@@ -8,7 +8,7 @@ export const testId = {
   usernameInputField: "username-input-field",
   confirmJoinButton: "confirm-join-button",
 
-  // Sequencer page
+  // Session page
   sequencerContainer: "sequencer-container",
   usersInSessionContainer: "users-in-session-container",
 };

@@ -1,4 +1,4 @@
-import "./GlobalSequencerControls.css";
+import "./SequencerControls.css";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/reduxHooks";
 import { selectIsSequencerStopped, selectSequencerConfiguration } from "../../store/sequencer/sequencerSelectors";

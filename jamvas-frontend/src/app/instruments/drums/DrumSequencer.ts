@@ -1,5 +1,5 @@
 import { Sampler } from "tone";
-import SequencerInstrument from "../sequencerInstrument";
+import SequencerInstrument from "../SequencerInstrument";
 import { InstrumentId } from "../InstrumentId";
 import { samples } from "./samples";
 import { Seconds } from "tone/build/esm/core/type/Units";

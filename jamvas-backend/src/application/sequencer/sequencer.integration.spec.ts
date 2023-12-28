@@ -9,7 +9,7 @@ import { InstrumentId } from '../../domain/instrument-id';
 import { SequencerConfiguration, Step } from '../../domain/sequencer-configuration';
 import Mocked = jest.Mocked;
 
-describe('Sequencer integration tests', () => {
+describe('Session integration tests', () => {
   let app: INestApplication;
   let sequencerRepositoryMock: Mocked<SequencerRepository>;
 
