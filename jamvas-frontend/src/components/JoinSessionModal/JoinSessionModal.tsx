@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   FormErrorMessage,
-  FormLabel,
   Input,
   Modal,
   ModalBody,
@@ -57,9 +56,8 @@ const JoinSessionModal: React.FC = () => {
             <ModalCloseButton />
             <ModalBody>
               <FormControl isInvalid={!!userRegistrationForm.errors.username}>
-                <FormLabel>Nickname</FormLabel>
                 <Input
-                  placeholder="Superman"
+                  placeholder="Nickname"
                   name="username"
                   defaultValue={userRegistrationForm.initialValues.username}
                   onChange={userRegistrationForm.handleChange}
