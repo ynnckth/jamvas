@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Sequence, Transport } from "tone";
 import { TOTAL_NO_STEPS } from "../app/SequencerConstants";
 import { useAppDispatch, useAppSelector } from "../store/reduxHooks";
@@ -10,35 +10,21 @@ import DrumSequencer from "../app/instruments/drums/DrumSequencer";
 import { InstrumentId } from "../app/instruments/InstrumentId";
 import LeadSynthSequencer from "../app/instruments/lead/LeadSynthSequencer";
 
+const sequence = new Sequence(() => {}, Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
+const drumSequencer = new DrumSequencer(InstrumentId.DRUMS);
+const leadSequencer = new LeadSynthSequencer(InstrumentId.LEAD);
+
 const useSequence = () => {
   const dispatch = useAppDispatch();
   const sequencerConfiguration = useAppSelector(selectSequencerConfiguration);
-  const [sequence, setSequence] = useState<Sequence>();
-  const [drumSequencer, setDrumSequencer] = useState<DrumSequencer>();
-  const [leadSequencer, setLeadSequencer] = useState<LeadSynthSequencer>();
 
+  // Update the sequence each time the sequencer state changes
   useEffect(() => {
-    if (!sequencerConfiguration?.sequencerInstrumentStates) return;
-
-    setDrumSequencer(new DrumSequencer(InstrumentId.DRUMS));
-    setLeadSequencer(new LeadSynthSequencer(InstrumentId.LEAD));
-
-    if (!sequence) {
-      const newSequence = new Sequence(
-        (time, currentStep) => {
-          playAllTracksAtCurrentStep(currentStep, time);
-          dispatch(setCurrentlyActiveStep(currentStep));
-        },
-        Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
-      setSequence(newSequence);
-    } else {
-      sequence.callback = (time, currentStep) => {
-        playAllTracksAtCurrentStep(currentStep, time);
-        dispatch(setCurrentlyActiveStep(currentStep));
-      };
-      setSequence(sequence);
-    }
-  }, [sequence, sequencerConfiguration?.sequencerInstrumentStates]);
+    sequence.callback = (time, currentStep) => {
+      playAllTracksAtCurrentStep(currentStep, time);
+      dispatch(setCurrentlyActiveStep(currentStep));
+    };
+  }, [sequencerConfiguration?.sequencerInstrumentStates]);
 
   const playAllTracksAtCurrentStep = (currentStep: number, time: Seconds) => {
     if (!drumSequencer || !leadSequencer || !sequencerConfiguration) {

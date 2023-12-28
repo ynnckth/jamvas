@@ -15,7 +15,7 @@ const createSocket = () => {
   return socketInstance;
 };
 
-export const useSequencerSocket = () => {
+export const useSessionSocket = () => {
   const [socket, setSocket] = useState<Socket | null>(createSocket());
 
   useEffect(() => {

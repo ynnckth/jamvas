@@ -8,7 +8,7 @@ import { SequencerControls } from "../SequencerControls/SequencerControls";
 import { InstrumentId } from "../../app/instruments/InstrumentId";
 import { setInstrumentGridValue } from "../../store/sequencer/sequencerThunks";
 import useSequence from "../../hooks/useSequence";
-import { useSequencerSocket } from "../../hooks/useSequencerSocket";
+import { useSessionSocket } from "../../hooks/useSessionSocket";
 import { SequencerConfiguration } from "../../types/SequencerConfiguration";
 import { setSequencerConfiguration } from "../../store/sequencer/sequencerSlice";
 import { updateUsersInSession } from "../../store/session/sessionSlice";
@@ -28,7 +28,7 @@ export const Session: React.FC = () => {
   const currentUser = useAppSelector(selectUser);
   const usersInSession = useAppSelector(selectAllUsersInSession);
   const { startSequence, stopSequence } = useSequence();
-  const { socket, connectClient, onSequencerConfigurationUpdated, onUserJoinedSession } = useSequencerSocket();
+  const { socket, connectClient, onSequencerConfigurationUpdated, onUserJoinedSession } = useSessionSocket();
 
   useEffect(() => {
     if (!socket || !currentUser) return;
@@ -81,7 +81,7 @@ export const Session: React.FC = () => {
 
   return (
     <div className="step-sequencer" data-testid={testId.sequencerContainer}>
-      <Box>Playing in this session</Box>
+      <Box>Currently in this session</Box>
       <Box color="var(--purple)" data-testid={testId.usersInSessionContainer}>
         {usersInSession.map((u) => u.name).join(", ")}
       </Box>
