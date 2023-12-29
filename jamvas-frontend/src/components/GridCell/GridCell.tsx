@@ -15,7 +15,6 @@ export const GridCell: React.FC<Props> = ({ isCurrentlyActiveStep, isOn, onClick
       style={{
         background: isOn ? fillColor : "",
         border: isCurrentlyActiveStep ? "1px solid white" : "1px solid #4D4D4D",
-        transition: "background 0.5s ease-in-out",
       }}
       onClick={onClick}
     />

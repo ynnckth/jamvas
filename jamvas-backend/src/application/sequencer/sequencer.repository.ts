@@ -24,7 +24,15 @@ export class SequencerRepository {
       {
         instrumentId: InstrumentId.LEAD,
         instrumentDisplayName: 'Lead',
-        tracks: [...getScaleForOctave(dorianScale, 4), ...getScaleForOctave(dorianScale, 5)].map((note) => ({
+        tracks: [...getScaleForOctave(dorianScale, 4), ...getScaleForOctave(dorianScale, 5)].reverse().map((note) => ({
+          name: note,
+          steps: this.createEmptySteps(),
+        })),
+      },
+      {
+        instrumentId: InstrumentId.BASS,
+        instrumentDisplayName: 'Bass',
+        tracks: [...getScaleForOctave(dorianScale, 3)].reverse().map((note) => ({
           name: note,
           steps: this.createEmptySteps(),
         })),

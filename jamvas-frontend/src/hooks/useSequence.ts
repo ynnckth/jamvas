@@ -11,10 +11,12 @@ import MelodicSynth from "../domain/instruments/lead/MelodicSynth";
 import { InstrumentId } from "../domain/instruments/InstrumentId";
 import { SequencerInstrumentState } from "../types/SequencerConfiguration";
 import Playable from "../domain/instruments/Playable";
+import BassSequencer from "../domain/instruments/bass/BassSequencer";
 
 const sequence = new Sequence(() => {}, Array.from(Array(TOTAL_NO_STEPS).keys()), "16n");
 const drumSequencer = new DrumSequencer();
 const leadSequencer = new MelodicSynth();
+const bassSequencer = new BassSequencer();
 
 const useSequence = () => {
   const dispatch = useAppDispatch();
@@ -49,9 +51,11 @@ const useSequence = () => {
     if (!sequencerConfiguration) return;
     const drumSequencerState = extractInstrumentState(InstrumentId.DRUMS);
     const leadSequencerState = extractInstrumentState(InstrumentId.LEAD);
+    const bassSequencerState = extractInstrumentState(InstrumentId.BASS);
 
     playAllActiveInstrumentTracksAtCurrentStep(drumSequencerState, drumSequencer, currentStep, time);
     playAllActiveInstrumentTracksAtCurrentStep(leadSequencerState, leadSequencer, currentStep, time);
+    playAllActiveInstrumentTracksAtCurrentStep(bassSequencerState, bassSequencer, currentStep, time);
   };
 
   const startSequence = async () => {
