@@ -5,7 +5,7 @@ export const getInstrumentColor = (instrumentId: InstrumentId) => {
     case InstrumentId.DRUMS:
       return "var(--orange)";
     case InstrumentId.BASS:
-      return "var(--green)";
+      return "var(--blue)";
     default:
       return "var(--gray)";
   }
