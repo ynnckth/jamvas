@@ -21,6 +21,7 @@ export const SequencerControls: React.FC<Props> = ({ onStartSequence, onStopSequ
   const onKeyPressed = async (event: KeyboardEvent) => {
     if (event.code === "Space") {
       await toggleStopped();
+      event.preventDefault();
     }
   };
 
