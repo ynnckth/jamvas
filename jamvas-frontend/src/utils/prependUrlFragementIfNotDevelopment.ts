@@ -4,7 +4,7 @@
  */
 export const prependUrlFragmentIfNotDevelopment = (sampleUrl: string) => {
   if (!import.meta.env.DEV) {
-    return `/jamvas/${sampleUrl}`;
+    return `/jamvas${sampleUrl}`;
   }
   return sampleUrl;
 };

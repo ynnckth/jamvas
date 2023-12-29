@@ -9,7 +9,7 @@ class BassSequencer implements Playable {
   constructor() {
     this.sampler = new Sampler({
       urls: {
-        C2: prependUrlFragmentIfNotDevelopment("/assets/sound_samples/bass_synth/glidesynth1.ogg"),
+        C2: prependUrlFragmentIfNotDevelopment("/assets/sound_samples/bass_synth/glidesynth1.wav"),
       },
     }).toDestination();
   }
