@@ -100,4 +100,4 @@ jobs:
           context: ./jamvas-frontend
           file: ./jamvas-frontend/Dockerfile
           push: true
-          tags: ghcr.io/jamvas-frontend:latest
+          tags: ghcr.io/jamvasfrontend:latest
