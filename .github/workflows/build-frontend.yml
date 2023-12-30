@@ -27,6 +27,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  packages: write # permission to push images to Github Packages container registry
 
 jobs:
   test:
@@ -100,4 +101,4 @@ jobs:
           context: ./jamvas-frontend
           file: ./jamvas-frontend/Dockerfile
           push: true
-          tags: ghcr.io/jamvasfrontend:latest
+          tags: ghcr.io/${{ github.repository }}-frontend:latest
