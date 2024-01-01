@@ -27,7 +27,6 @@ on:
 permissions:
   contents: read
   id-token: write
-  packages: write # permission to push images to Github Packages container registry
 
 jobs:
   test:
@@ -86,19 +85,3 @@ jobs:
         with:
           name: "frontend-dist"
           path: "./jamvas-frontend/dist"
-
-      - name: "Login to GitHub Packages container registry"
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # TODO: Version the published docker images (currently always overriding latest)
-      - name: "⚒️ Build and push Docker image"
-        uses: docker/build-push-action@v2
-        with:
-          context: ./jamvas-frontend
-          file: ./jamvas-frontend/Dockerfile
-          push: true
-          tags: ghcr.io/jamvas-frontend:latest
