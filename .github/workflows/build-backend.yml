@@ -83,4 +83,4 @@ jobs:
           context: ./jamvas-backend
           file: ./jamvas-backend/Dockerfile
           push: true
-          tags: ghcr.io/jamvas:latest
+          tags: ghcr.io/${{ github.repository }}:latest
