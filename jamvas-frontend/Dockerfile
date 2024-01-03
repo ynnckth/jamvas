@@ -8,7 +8,7 @@ FROM node:16.18.0 AS build
 USER node
 WORKDIR /usr/src/app
 COPY --chown=node:node . /usr/src/app/
-ENV VITE_BACKEND_API_BASE_URL=http://jamvas-backend-service
+ENV VITE_BACKEND_API_BASE_URL=http://jamvas.fun/api
 RUN npm ci  && \
     npm run build
 
