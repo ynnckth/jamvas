@@ -7,11 +7,13 @@ import { setupServer } from "msw/node";
 import { rest } from "msw";
 import { baseUrl as sessionApiBaseUrl } from "./api/sessionApi";
 import { baseUrl as sequencerApiBaseUrl } from "./api/sequencerApi";
+import { baseUrl as appApiBaseUrl } from "./api/appApi";
 import { User } from "./types/User";
 import { SequencerConfiguration } from "./types/SequencerConfiguration";
 import { DEFAULT_BPM } from "./domain/SequencerConstants";
 import { serverBaseUrl } from "./api/apiUtils";
 import { ApiException } from "./api/apiException";
+import { AppVersion } from "./types/AppVersion";
 
 const server = setupServer();
 
@@ -30,11 +32,26 @@ describe(App.name, () => {
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    setupApiCallHandlerForServerVersion();
     renderWithProviders(<App />);
+    await waitFor(() => expect(screen.queryByTestId(testId.connectingToServerSpinner)).toBeFalsy());
   });
 
+  const setupApiCallHandlerForServerVersion = () => {
+    server.use(
+      rest.get<AppVersion>(`${appApiBaseUrl}/version`, async (req, res, ctx) => {
+        return res(ctx.json({}), ctx.delay(250));
+      })
+    );
+  };
+
   const setupApiCallHandlersForSuccessfulUserRegistration = () => {
+    server.use(
+      rest.get<AppVersion>(`${appApiBaseUrl}/version`, async (req, res, ctx) => {
+        return res(ctx.json({}), ctx.delay(250));
+      })
+    );
     server.use(
       rest.post<User>(sessionApiBaseUrl, async (req, res, ctx) => {
         return res(ctx.json(userMock), ctx.delay(250));

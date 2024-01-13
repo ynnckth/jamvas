@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       {connectingToServer && (
-        <div>
+        <div data-testid={testId.connectingToServerSpinner}>
           <Spinner />
           <div>Connecting...</div>
         </div>

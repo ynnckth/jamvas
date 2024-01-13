@@ -1,5 +1,6 @@
 export const testId = {
   // Landing page
+  connectingToServerSpinner: "connecting-to-server",
   appTitle: "domain-title",
   joinSessionButton: "join-session-button",
 
