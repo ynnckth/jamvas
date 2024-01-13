@@ -1,8 +1,10 @@
 import { combineReducers, configureStore, PreloadedState } from "@reduxjs/toolkit";
 import sequencerReducer from "./sequencer/sequencerSlice";
 import sessionReducer from "./session/sessionSlice";
+import appReducer from "./app/appSlice";
 
 const rootReducer = combineReducers({
+  appSlice: appReducer,
   sequencerSlice: sequencerReducer,
   sessionSlice: sessionReducer,
 });
