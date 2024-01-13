@@ -30,7 +30,7 @@ const App: React.FC = () => {
       {connectingToServer && (
         <div data-testid={testId.connectingToServerSpinner}>
           <Spinner />
-          <div>Connecting...</div>
+          <div>Connecting</div>
         </div>
       )}
       {!connectingToServer && !currentUser && (
